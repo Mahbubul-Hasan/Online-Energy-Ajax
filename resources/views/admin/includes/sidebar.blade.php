@@ -21,6 +21,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
           <li class="nav-item">
             <a href="{{  route("admin.dashboard") }}" class="nav-link">
               <i class="nav-icon fas fa-snowflake"></i>
@@ -29,6 +30,16 @@
               </p>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a href="{{  route("admin.categories.index") }}" class="nav-link">
+              <i class="nav-icon fas fa-align-justify"></i>
+              <p>
+                Category
+              </p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
