@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-{{-- @section('content')
+@section('content')
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -592,8 +592,4 @@
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
   </section>
-@endsection --}}
-
-@section("content")
-  -----------------
 @endsection
