@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>@yield('title')| Admin | {{ config("app.name") }}</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset("/") }}asset/admin/css/fontawesome-free/css/all.min.css">
