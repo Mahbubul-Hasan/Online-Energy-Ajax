@@ -43,7 +43,7 @@
                   <tr>
                       <th>#</th>
                       <th>name</th>
-                      <th>Slug</th>
+                      <th>Description</th>
                       <th>Publication Status</th>
                       <th>Action</th>
                   </tr>
@@ -52,19 +52,26 @@
                   <tr>
                       <th>#</th>
                       <th>name</th>
-                      <th>Slug</th>
+                      <th>Description</th>
                       <th>Publication Status</th>
                       <th>Action</th>
                   </tr>
                   </tfoot>
                   <tbody>
+                  @php($i = 1)
+                  @foreach($categories as $category)
                       <tr>
-                          <td>#</td>
-                          <td>name</td>
-                          <td>Slug</th>
-                          <td>publication status</td>
-                          <td>Action</td>
+                          <td>{{ $i++ }}</td>
+                          <td>{{ $category->name }}</td>
+                          <td>{{ substr($category->description, 0, 50) }}...</td>
+                          <td>{{ $category->active == 1 ? "Active" : "Inactive" }}</td>
+                          <td>
+                              <button class="btn btn-success btn-sm"><i class="fas fa-eye"></i></button>
+                              <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                          </td>
                       </tr>
+                  @endforeach
                   </tbody>
               </table>
           </div>
