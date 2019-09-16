@@ -13,11 +13,21 @@ $(function () {
             beforeSend: () => {
                 alert("Sending...........")
             },
-            success: () => {
-                alert("Success...........")
+            success: (data) => {
+                if (data.name)
+                {
+                    $("#name").html(data.name);
+                }else {
+                    Swal.fire(
+                        'Good job!',
+                        'You clicked the button!',
+                        'success'
+                    )
+                }
+                console.log(data.name);
             },
             complete: () => {
-                alert("Complete...........")
+
             },
         })
     })

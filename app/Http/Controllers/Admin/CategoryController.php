@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -37,8 +38,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->saveCategoryInfo($request, $category);
+        $validator = Validator::make($request->all(), [
+            "name" => "required",
+            "active" => "required",
+        ]);
+        if ($validator->fails())
+            return response()->json($validator->errors());
+        else {
+            $category = new Category();
+            $category->saveCategoryInfo($request, $category);
+            return response()->json("seccess");
+        }
     }
 
     /**

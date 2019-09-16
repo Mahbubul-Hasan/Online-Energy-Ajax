@@ -89,6 +89,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset("/") }}asset/admin/js/demo.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
 {{--Csrf--}}
 <script>
     $.ajaxSetup({

@@ -102,6 +102,7 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Category Name" name="name">
                         </div>
+                        <p id="name" style="color: red;"></p>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -112,7 +113,7 @@
 
                         <div class="form-group">
 
-                            <input type="radio" value="1" name="active">
+                            <input type="radio" value="1" name="active" checked>
                             <label class="mr-5">Active </label>
 
                             <input type="radio"  value="0" name="active">
