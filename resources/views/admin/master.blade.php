@@ -88,5 +88,17 @@
 <script src="{{ asset("/") }}asset/admin/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset("/") }}asset/admin/js/demo.js"></script>
+
+{{--Csrf--}}
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
+@yield("extra-js")
+
 </body>
 </html>
