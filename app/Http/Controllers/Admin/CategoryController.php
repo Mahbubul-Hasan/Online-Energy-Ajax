@@ -16,8 +16,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data["categories"] = Category::orderBy("id", "desc")->get();
+        $data["categories"] = Category::orderBy("id", "desc")->paginate(5);
         return view("admin.category.category")->with($data);
+    }
+
+    public function getAllcategory()
+    {
+        $data["categories"] = Category::orderBy("id", "desc")->paginate(5);
+        return view("admin.category.getAllcategory")->with($data);
     }
 
     /**

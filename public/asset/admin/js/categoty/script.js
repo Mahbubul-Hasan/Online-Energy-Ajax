@@ -11,24 +11,38 @@ $(function () {
             data: data,
             dataType: "JSON",
             beforeSend: () => {
-                alert("Sending...........")
             },
             success: (data) => {
                 if (data.name)
                 {
+                    $("#name").css("display", "block");
                     $("#name").html(data.name);
                 }else {
                     Swal.fire(
                         'Good job!',
                         'You clicked the button!',
                         'success'
-                    )
+                    );
+                    $("#name").css("display", "none");
+                    $(this)[0].reset();
+                    $('#addCategoryModal').modal('hide');
+                    return getAllcategory();
                 }
-                console.log(data.name);
             },
             complete: () => {
-
             },
         })
-    })
+    });
+
+    const getAllcategory = () => {
+        let url = $("#getAllcategory").data("url");
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "html",
+            success: (data) => {
+                $("#showAllcategory").html(data)
+            },
+        })
+    }
 });
