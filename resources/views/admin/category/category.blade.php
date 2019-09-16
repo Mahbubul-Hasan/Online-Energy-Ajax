@@ -69,9 +69,9 @@
                           <td>{{ $category->active == 1 ? "Yes" : "No" }}</td>
                           <td>{{ $category->created_at->format("d-m-Y & h:i:a") }}</td>
                           <td>
-                              <button class="btn btn-success btn-sm"><i class="fas fa-eye"></i></button>
-                              <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
-                              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                              <a id="view" href="{{url('/admin/categories', [$category->id])}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
+                              <a id="edit" href="{{ url("/admin/categories/{category}") }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                              <a id="delete" href="{{ url("/admin/categories/{category}") }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                           </td>
                       </tr>
                   @endforeach
@@ -132,6 +132,45 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!--View Category Modal -->
+
+<div class="modal fade" id="viewCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewCategoryModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <b>Name: </b>
+                        <span id="cName"></span>
+                    </div>
+                    <div>
+                        <b>Description: </b>
+                        <span id="cDescription"></span>
+                    </div><div>
+                        <b>Active: </b>
+                        <span id="cActive"></span>
+                    </div><div>
+                        <b>Date:</b>
+                        <span id="cDate"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
