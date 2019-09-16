@@ -40,7 +40,7 @@ $(function () {
         let url = $("#getAllcategory").data("url");
         $.ajax({
             url: url,
-            type: "get",
+            type: "GET",
             dataType: "html",
             success: (data) => {
                 $("#showAllcategory").html(data)
@@ -54,7 +54,7 @@ $(function () {
         let url = $(this).attr("href");
         $.ajax({
             url: url,
-            typr: "get",
+            typr: "GET",
             dataType: "JSON",
             success: (data) => {
                 if(! $.isEmptyObject(data))
@@ -67,6 +67,41 @@ $(function () {
                     $("#cActive").text(data.active === 1 ? "Yes" : "No");
                     $("#cDate").text(data.created_at);
                 }
+            }
+        })
+    });
+
+    $(document).on("click", "#delete", function (event) {
+        event.preventDefault();
+        let url = $(this).attr("href");
+        let token = $(this).data('token');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: {_method: 'delete', _token :token},
+                    dataType: "JSON",
+                    success: function(data) {
+                        if (data === "delete")
+                            return getAllcategory();
+                    },
+                });
+                console.log("Delete");
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success',
+                )
             }
         })
     })
