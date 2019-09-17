@@ -77,7 +77,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoty = Category::find($id);
+        return $categoty;
     }
 
     /**
@@ -89,7 +90,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request->all();
+        $validator = Validator::make($request->all(), [
+            "name" => "required",
+            "active" => "required",
+        ]);
+        if ($validator->fails())
+            return response()->json($validator->errors());
+        else {
+            $category = Category::find($id);
+            $category->saveCategoryInfo($request, $category);
+            return response()->json("seccess");
+        }
     }
 
     /**

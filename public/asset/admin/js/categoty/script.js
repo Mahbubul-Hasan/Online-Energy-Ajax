@@ -1,13 +1,24 @@
 $(function () {
+    // Add------------------------------------------------------------
     $(document).on("submit", "#addCategoryForm", function(event) {
         event.preventDefault();
+
         let url = $(this).attr("action");
-        let type = $(this).attr("method");
-        let data = $(this).serialize();
+        let message = "A new Category Save"
+        return seveCategoryInfo("#addCategoryForm", "#addCategoryModal", url, message);
+        
+    });
+
+
+    //  Add and Update----------------------------------------------------
+    const seveCategoryInfo = (form, modal, url, message) => {
+        // console.log(url);
+        let method = $(form).attr("method");
+        let data = $(form).serialize();
 
         $.ajax({
             url: url,
-            type: type,
+            type: method,
             data: data,
             dataType: "JSON",
             beforeSend: () => {
@@ -15,27 +26,28 @@ $(function () {
             success: (data) => {
                 if (data.name)
                 {
-                    $("#name").css("display", "block");
-                    $("#name").html(data.name);
+                    $(".errorName").css("display", "block");
+                    $(".errorName").html(data.name);
                 }else {
                     Swal.fire({
                         position: 'top-end',
                         type: 'success',
-                        title: 'Your work has been saved',
+                        title: message,
                         showConfirmButton: false,
                         timer: 2000
                     });
-                    $("#name").css("display", "none");
-                    $(this)[0].reset();
-                    $('#addCategoryModal').modal('hide');
+                    $(".errorName").css("display", "none");
+                    $(form)[0].reset();
+                    $(modal).modal('hide');
                     return getAllcategory();
                 }
             },
             complete: () => {
             },
         })
-    });
+    }
 
+    // All Category------------------------------------------------------------
     const getAllcategory = () => {
         let url = $("#getAllcategory").data("url");
         $.ajax({
@@ -48,7 +60,7 @@ $(function () {
         })
     };
 
-
+// View------------------------------------------------------------
     $(document).on("click", "#view", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
@@ -70,7 +82,7 @@ $(function () {
             }
         })
     });
-
+// Delete------------------------------------------------------------
     $(document).on("click", "#delete", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
@@ -88,7 +100,7 @@ $(function () {
             if (result.value) {
                 $.ajax({
                     url: url,
-                    type: 'post',
+                    type: 'POST',
                     data: {_method: 'delete', _token :token},
                     dataType: "JSON",
                     success: function(data) {
@@ -102,6 +114,36 @@ $(function () {
                     'Your file has been deleted.',
                     'success',
                 )
+            }
+        })
+    });
+
+    // Edit------------------------------------------------------------
+    $(document).on("click", "#edit", function (event) {
+        event.preventDefault();
+        let url = $(this).attr("href") +'/edit';
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: (data) => {
+                $("#editCategoryModal").modal("show");
+                $("#eId").val(data.id);
+                $("#eName").val(data.name);
+                $("#eDescription").val(data.description);
+                
+                $("#active-" + data.active).prop('checked', true);
+                $("#editCategoryModalLabel").text("Update "+data.name +"'s Data")
+
+                $(document).on("submit", "#updateCategoryForm", function(event) {
+                    event.preventDefault();
+
+                    let url = $("#updateCategoryForm").attr("action")+ "/" + data.id;
+                    console.log(url)
+                    let message = "Category info update";
+                    return seveCategoryInfo("#updateCategoryForm","#editCategoryModal", url, message);
+                });
             }
         })
     })

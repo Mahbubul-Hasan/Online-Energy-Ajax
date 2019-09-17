@@ -106,7 +106,7 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Category Name" name="name">
                         </div>
-                        <p id="name" style="color: red;"></p>
+                        <p class="errorName" style="color: red;"></p>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -175,6 +175,59 @@
     </div>
 </div>
 
+<!--Edit Category Modal -->
+
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="updateCategoryForm" action="{{ url("/admin/categories") }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-signature"></i></span>
+                            </div>
+                            <input id="eId" type="text" class="form-control" name="id">
+                            <input id="eName" type="text" class="form-control" placeholder="Category Name" name="name">
+                        </div>
+                        <p class="errorName" style="color: red;"></p>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-audio-description"></i></span>
+                            </div>
+                            <textarea id="eDescription" class="form-control" placeholder="Description (Optional)" name="description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input id="active-1" class="publication-status" type="radio" value="1" name="active">
+                            <label class="mr-5">Active</label>
+
+                            <input id="active-0" class="publication-status" type="radio"  value="0" name="active">
+                            <label>Inactive</label>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-secondary">Update Category</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 
