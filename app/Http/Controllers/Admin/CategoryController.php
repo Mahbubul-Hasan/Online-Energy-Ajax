@@ -45,7 +45,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "name" => "required",
+            "name" => "required|unique:categories",
             "active" => "required",
         ]);
         if ($validator->fails())
@@ -91,20 +91,14 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            "name" => "required",
+            "name" => "required|unique:categories,name,". $id,
             "active" => "required",
         ]);
         if ($validator->fails())
             return response()->json($validator->errors());
         else {
             $category = Category::find($id);
-            // return $category;
-            // $category->saveCategoryInfo($request, $category);
-            $category->update([
-                "name" => $request->name,
-                "description" => $request->description,
-                "active" => $request->active
-            ]);
+            $category->saveCategoryInfo($request, $category);
 
             return response()->json("seccess");
         }
