@@ -145,7 +145,7 @@ $(function () {
         })
     });
 
-// Update------------------------------------------------------------
+    // Update------------------------------------------------------------
     $(document).on("submit", "#updateCategoryForm", function(event) {
         event.preventDefault();
         
@@ -154,5 +154,24 @@ $(function () {
         console.log(url)
         let message = "Category info update";
         return seveCategoryInfo(this,"#editCategoryModal", url, message);
+    });
+
+    // pagination---------------------------------------------------------
+    $(document).on("click", ".pagination li a", function(event){
+        event.preventDefault();
+
+        let url = $(this).attr("href");
+        let pageNumber = url.split("?page=")[1];
+
+        let newUrl = $("#getAllcategoryByPagination").data("url")+ "?page=" + pageNumber;
+
+        $.ajax({
+            url: newUrl,
+            type: "GET",
+            dataType: "HTML",
+            success: (data) => {
+                $("#showAllcategory").html(data)
+            }
+        });
     });
 });

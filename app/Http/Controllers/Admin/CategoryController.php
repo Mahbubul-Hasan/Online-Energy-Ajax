@@ -116,4 +116,10 @@ class CategoryController extends Controller
         $category->delete();
         return response()->json("delete");
     }
+    
+    public function getAllcategoryByPagination()
+    {
+        $data["categories"] = Category::orderBy("id", "desc")->paginate(5);
+        return view("admin.category.getAllcategory")->with($data);
+    }
 }
