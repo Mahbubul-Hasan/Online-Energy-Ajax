@@ -196,7 +196,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-signature"></i></span>
                             </div>
-                            <input id="eId" type="text" class="form-control" name="id">
+                            <input id="eId" type="hidden" class="form-control" name="id">
                             <input id="eName" type="text" class="form-control" placeholder="Category Name" name="name">
                         </div>
                         <p class="errorName" style="color: red;"></p>
