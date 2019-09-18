@@ -1,18 +1,23 @@
 $(function () {
+
+    $(document).on("click", "#addCategoryModal", function () {
+        $(".errorName").css("display", "none")
+    });
+
+
+
     // Add------------------------------------------------------------
     $(document).on("submit", "#addCategoryForm", function(event) {
         event.preventDefault();
-
         let url = $(this).attr("action");
         let message = "A new Category Save"
-        return seveCategoryInfo("#addCategoryForm", "#addCategoryModal", url, message);
+        return seveCategoryInfo(this, "#addCategoryModal", url, message);
         
     });
 
 
     //  Add and Update----------------------------------------------------
     const seveCategoryInfo = (form, modal, url, message) => {
-        // console.log(url);
         let method = $(form).attr("method");
         let data = $(form).serialize();
 
@@ -36,7 +41,6 @@ $(function () {
                         showConfirmButton: false,
                         timer: 2000
                     });
-                    $(".errorName").css("display", "none");
                     $(form)[0].reset();
                     $(modal).modal('hide');
                     return getAllcategory();
@@ -121,7 +125,9 @@ $(function () {
     // Edit------------------------------------------------------------
     $(document).on("click", "#edit", function (event) {
         event.preventDefault();
+
         let url = $(this).attr("href") +'/edit';
+        $(".errorName").css("display", "none")
 
         $.ajax({
             url: url,
@@ -135,16 +141,18 @@ $(function () {
                 
                 $("#active-" + data.active).prop('checked', true);
                 $("#editCategoryModalLabel").text("Update "+data.name +"'s Data")
-
-                $(document).on("submit", "#updateCategoryForm", function(event) {
-                    event.preventDefault();
-
-                    let url = $("#updateCategoryForm").attr("action")+ "/" + data.id;
-                    console.log(url)
-                    let message = "Category info update";
-                    return seveCategoryInfo("#updateCategoryForm","#editCategoryModal", url, message);
-                });
             }
         })
-    })
+    });
+
+// Update------------------------------------------------------------
+    $(document).on("submit", "#updateCategoryForm", function(event) {
+        event.preventDefault();
+        
+        let id  = $("#eId").val();
+        let url = $(this).attr("action")+ "/" + id;
+        console.log(url)
+        let message = "Category info update";
+        return seveCategoryInfo(this,"#editCategoryModal", url, message);
+    });
 });

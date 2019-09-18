@@ -90,7 +90,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all();
         $validator = Validator::make($request->all(), [
             "name" => "required",
             "active" => "required",
@@ -99,7 +98,14 @@ class CategoryController extends Controller
             return response()->json($validator->errors());
         else {
             $category = Category::find($id);
-            $category->saveCategoryInfo($request, $category);
+            // return $category;
+            // $category->saveCategoryInfo($request, $category);
+            $category->update([
+                "name" => $request->name,
+                "description" => $request->description,
+                "active" => $request->active
+            ]);
+
             return response()->json("seccess");
         }
     }

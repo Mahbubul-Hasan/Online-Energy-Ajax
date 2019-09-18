@@ -106,7 +106,7 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Category Name" name="name">
                         </div>
-                        <p class="errorName" style="color: red;"></p>
+                        <p class="errorName" style="display: none; color: red;"></p>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
