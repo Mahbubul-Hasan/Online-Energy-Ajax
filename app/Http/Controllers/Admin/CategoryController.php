@@ -117,9 +117,20 @@ class CategoryController extends Controller
         return response()->json("delete");
     }
     
-    public function getAllcategoryByPagination()
+    public function categorySearch()
     {
-        $data["categories"] = Category::orderBy("id", "desc")->paginate(5);
+        $key = \Request::get("key");
+
+        if ($key != null)
+        {
+            $data["categories"] = Category::where("name", "LIKE", "%$key%")
+                                            // ->orWhere("description", "LIKE", "%$key%")
+                                            ->orderBy("id", "desc")
+                                            ->paginate(5);
+        } else {
+            $data["categories"] = Category::orderBy("id", "desc")->paginate(5);
+        }
+
         return view("admin.category.getAllcategory")->with($data);
     }
 }

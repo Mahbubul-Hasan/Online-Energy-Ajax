@@ -5,4 +5,5 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.'], fun
     Route::resource('/categories', 'CategoryController');
     Route::get('/getAllcategory', 'CategoryController@getAllcategory');
     Route::get('/getAllcategoryByPagination', 'CategoryController@getAllcategory');
+    Route::get('/categorySearch', 'CategoryController@categorySearch');
 });

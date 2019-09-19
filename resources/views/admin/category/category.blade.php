@@ -24,7 +24,15 @@
   <div class="card mb-3">
       <div class="card-header pt-3">
 
-          <h3 class="card-title">Category List</h3>
+          {{-- <h3 class="card-title">Category List</h3> --}}
+          <div class="col-md-10">
+              {{-- <form action="" method="POST">
+                  @csrf
+                  <input class="admin-search" type="text" placeholder="Search" name="search"/>
+              </form> --}}
+              <input class="admin-search" type="text" placeholder="Search" name="search" />
+              <div id="category-search" data-url="{{ url("/admin/categorySearch") }}"></div>
+          </div>
 
           <div class="card-tools">
               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCategoryModal">

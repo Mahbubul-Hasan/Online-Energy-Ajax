@@ -174,4 +174,23 @@ $(function () {
             }
         });
     });
+
+    $(document).on("keyup", ".admin-search", function(){
+
+        setTimeout(() => {
+            let key = $(".admin-search").val();
+            let url = $("#category-search").data("url")+ "?key=" + key; 
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "HTML",
+                success: (data) => {
+                    console.log(data);
+                    $("#showAllcategory").html(data)
+                }
+            });
+        }, 1000);
+
+    })
 });

@@ -1,5 +1,10 @@
 <div class="table-responsive">
-
+    @if ($categories->count() == 0)
+        <div class="alert alert-warning" role="alert">
+            <b>Sorry!</b> No Data fount.
+        </div>
+    @else
+        
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
         <tr>
@@ -40,4 +45,6 @@
         </tbody>
     </table>
     {{ $categories->links() }}
+
+    @endif
 </div>
