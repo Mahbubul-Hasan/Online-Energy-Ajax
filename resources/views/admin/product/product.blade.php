@@ -31,7 +31,7 @@
           </div>
 
           <div class="card-tools">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCategoryModal">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProductModal">
                   Add Product
                   <i class="fas fa-plus-circle"></i>
               </button>
@@ -42,7 +42,7 @@
 
           <div class="table-responsive" id="showAllcategory">
             
-            {{-- @include('admin.category.getAllcategory') --}}
+            @include('admin.product.getAllProduct')
               
           </div>
       </div>
@@ -51,8 +51,26 @@
   <div id="getAllcategoryByPagination" data-url="{{ url("/admin/getAllcategoryByPagination") }}"></div> --}}
 
 
-<!--Add Category Modal -->
-
+<!--Add Product Modal -->
+<div id="addProductModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Add Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Add Product</button>
+          </div>
+      </div>
+    </div>
+</div>
 
 @endsection
 
