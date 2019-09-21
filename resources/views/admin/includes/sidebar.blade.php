@@ -33,7 +33,7 @@
           
           <li class="nav-item">
             <a href="{{  route("admin.categories.index") }}" class="nav-link">
-              <i class="nav-icon fas fa-align-justify"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Category
               </p>
