@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -16,7 +17,14 @@ class ProductController extends Controller
     public function index()
     {
         $data["products"] = Product::with("category")->orderBy("id", "desc")->paginate(5);
+        $data["categories"] = Category::all();
         return view("admin.product.product")->with($data);
+    }
+    
+    public function getAllProduct()
+    {
+        $data["products"] = Product::with("category")->orderBy("id", "desc")->paginate(5);
+        return view("admin.product.getAllProduct")->with($data);
     }
 
     /**
@@ -37,7 +45,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
@@ -83,6 +91,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return response()->json("Delete");
     }
 }

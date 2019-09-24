@@ -3,6 +3,15 @@
 @section('title')
     Product
 @endsection
+@section('extra-css')
+{{-- <link rel="stylesheet" href="{{ asset("/") }}asset/admin/ckeditor/samples/css/samples.css"> --}}
+<link rel="stylesheet" href="{{ asset("/") }}asset/admin/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">
+<style>
+  .cke_browser_gecko {
+    width: 100%;
+  }
+</style>
+@endsection
 
 @section('content')
 <div class="content-header">
@@ -40,34 +49,131 @@
           
       <div class="card-body">
 
-          <div class="table-responsive" id="showAllcategory">
+          <div class="table-responsive" id="showAllProduct">
             
             @include('admin.product.getAllProduct')
               
           </div>
       </div>
 </div>
-  {{-- <div id="getAllcategory" data-url="{{ url("/admin/getAllcategory") }}"></div>
-  <div id="getAllcategoryByPagination" data-url="{{ url("/admin/getAllcategoryByPagination") }}"></div> --}}
+<div id="getAllProduct" data-url="{{ url("/admin/getAllProduct") }}"></div>
+  {{-- <div id="getAllcategoryByPagination" data-url="{{ url("/admin/getAllcategoryByPagination") }}"></div> --}}
 
 
 <!--Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add Product</button>
-        </div>
+        <form id="addCategoryForm" action="{{ url("admin/products") }}" method="POST">
+          @csrf
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="addCategoryModalLabel">Add Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1"><i class="fab fa-acquisitions-incorporated"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Product Name" name="name">
+                  </div>
+                  <p class="errorName" style="display: none; color: red;"></p>
+                  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="category_id">
+                      <option selected>Choose Category Name...</option>
+                      @foreach ($categories as $category)
+                      <option value="{{ $category->id }}">{{ $category->name }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <p class="errorCategoryName" style="display: none; color: red;"></p>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1"><i class="fas fa-code"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Product Code" name="code">
+                  </div>
+                  <p class="errorProductCode" style="display: none; color: red;"></p>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                      <span class="input-group-text">0.00</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Product Price" name="price">
+                  </div>                  
+                  <p class="errorProductPrice" style="display: none; color: red;"></p>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                      <span class="input-group-text">0.00</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Product Offer Price (Optional)" name="Offer_price">
+                  </div>
+                  <p class="errorProductOfferPrice" style="display: none; color: red;"></p>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+                      </div>
+                      <textarea class="form-control" placeholder="Short Description" name="short_description"></textarea>
+                  </div>
+                  <p class="errorProductShortDescription" style="display: none; color: red;"></p>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-text-height"></i></span>
+                      </div>
+                      <textarea id="editor" class="form-control" placeholder="Long Description" name="long_description"></textarea>
+                  </div>
+                  <p class="errorProductLongDescription" style="display: none; color: red;"></p>
+
+                  <div class="form-group">
+                      <label class="mr-3">Popular: </label>
+                      <input type="radio" value="1" name="popular">
+                      <label class="mr-5" style="font-weight: normal;">Popular </label>
+
+                      <input type="radio"  value="0" name="popular" checked>
+                      <label style="font-weight: normal;">Unpopular</label>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="mr-3">Active: </label>
+                      <input type="radio" value="1" name="active" checked>
+                      <label class="mr-5" style="font-weight: normal;">Active </label>
+
+                      <input type="radio"  value="0" name="active">
+                      <label style="font-weight: normal;">Inactive</label>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="photo" accept="image/*">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div>
+                  <p class="errorProductPhoto" style="display: none; color: red;"></p>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add Product</button>
+              </div>
+          </div>
+      </form>
       </div>
     </div>
 </div>
@@ -139,5 +245,12 @@
 @endsection
 
 @section("extra-js")
-    <script src="{{ asset("/") }}asset/admin/js/product/script.js"></script>
+  <script src="{{ asset("/") }}asset/admin/js/product/script.js"></script>
+
+  <script src="{{ asset("/") }}asset/admin/ckeditor/ckeditor.js"></script>
+    <script src="{{ asset("/") }}asset/admin/ckeditor/samples/js/sample.js"></script>
+
+    <script>
+        initSample();
+    </script>
 @endsection

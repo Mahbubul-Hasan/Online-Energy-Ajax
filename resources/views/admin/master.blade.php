@@ -29,6 +29,9 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset("/") }}asset/admin/css/style.css">
+
+  @yield('extra-css')
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

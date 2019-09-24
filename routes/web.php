@@ -9,4 +9,5 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.'], fun
     Route::get('/categorySearch', 'CategoryController@categorySearch');
 
     Route::resource('/products', 'ProductController');
+    Route::get('/getAllProduct', 'ProductController@getAllProduct');
 });
