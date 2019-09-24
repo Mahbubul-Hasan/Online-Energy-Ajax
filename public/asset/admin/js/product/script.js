@@ -82,5 +82,66 @@ $(function(){
             }
           })
     });
+
+    // Add----------------------------------------------------
+
+    $(document).on("submit", "#addProductForm", function(event){
+        event.preventDefault();
+
+        $(".errorName").css("display", "none");
+        $(".errorCategoryName").css("display", "none");
+        $(".errorProductCode").css("display", "none");
+        $(".errorProductPrice").css("display", "none");
+        $(".errorProductOfferPrice").css("display", "none");
+        $(".errorProductShortDescription").css("display", "none");
+        $(".errorProductLongDescription").css("display", "none");
+        $(".errorProductPhoto").css("display", "none");
+
+
+        let url = $(this).attr("action");
+        let method = $(this).attr("method");
+        let photo = $("#photo").val().replace(/^.*[\\\/]/, '');
+        let data = $(this).serialize() +"&photo="+ photo;
+
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            dataType: "JSON",
+            success: (data)=> {
+                
+                if (data == "Success") {
+                    console.log(data);
+                }
+                else{
+                    if (data.name) {
+                        $(".errorName").css("display", "block");
+                        $(".errorName").html(data.name);
+                    } if (data.category_id) {
+                        $(".errorCategoryName").css("display", "block");
+                        $(".errorCategoryName").html(data.category_id);
+                    } if (data.code) {
+                        $(".errorProductCode").css("display", "block");
+                        $(".errorProductCode").html(data.code);
+                    } if (data.price) {
+                        $(".errorProductPrice").css("display", "block");
+                        $(".errorProductPrice").html(data.price);
+                    } if (data.Offer_price) {
+                        $(".errorProductOfferPrice").css("display", "block");
+                        $(".errorProductOfferPrice").html(data.Offer_price);
+                    } if (data.short_description) {
+                        $(".errorProductShortDescription").css("display", "block");
+                        $(".errorProductShortDescription").html(data.short_description);
+                    } if (data.long_description) {
+                        $(".errorProductLongDescription").css("display", "block");
+                        $(".errorProductLongDescription").html(data.long_description);
+                    } if (data.photo) {
+                        $(".errorProductPhoto").css("display", "block");
+                        $(".errorProductPhoto").html(data.photo);
+                    } 
+                }
+            }
+        })
+    });
     
 })
