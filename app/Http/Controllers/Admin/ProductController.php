@@ -22,7 +22,7 @@ class ProductController extends Controller
         $data["categories"] = Category::all();
         return view("admin.product.product")->with($data);
     }
-    
+
     public function getAllProduct()
     {
         $data["products"] = Product::with("category")->orderBy("id", "desc")->paginate(5);
@@ -48,10 +48,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "name" => "required|min:5|max:100",
+            "name" => "required|min:5|max:100|unique:products",
             "category_id" => "required|numeric",
             "photo" => "required|max:1024",
-            "code" => "required|min:2|max:20",
+            "code" => "required|min:2|max:20|unique:products",
             "price" => "required|regex:/^\d*(\.\d{2})?$/",
             "Offer_price" => "nullable|regex:/^\d*(\.\d{2})?$/",
             "short_description" => "required",
@@ -60,25 +60,32 @@ class ProductController extends Controller
             "active" => "required",
         ]);
 
-        if ($validator->fails()) 
+        if ($validator->fails())
             return response()->json($validator->errors());
-        else{
-            
-            $photo = $request->file("photo");
-            $folder = "asset/admin/img/products/";
-            $name = "IMG_".date("Ymd_his").".".$photo->getClientOriginalExtension();
-                
-            Image::make($photo)->resize(640, 480)->save($folder.$name);
+        else {
 
-            $imgURL = $folder.$name;
+            $photo = $request->file("photo");
+
+            $imgURL = $this->saveImage($photo);
 
             $product = new Product();
             $product->saveProductInfo($request, $product, $imgURL);
 
-            return response()->json("seccess");   
+            return response()->json("seccess");
         }
     }
 
+
+    function saveImage($photo)
+    {
+        $folder = "asset/admin/img/products/";
+        $name = "IMG_" . date("Ymd_his") . "." . $photo->getClientOriginalExtension();
+
+        Image::make($photo)->resize(640, 480)->save($folder . $name);
+
+        $imgURL = $folder . $name;
+        return $imgURL;
+    }
     /**
      * Display the specified resource.
      *
@@ -112,7 +119,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "name" => "required|min:5|max:100|unique:products,name," . $id,
+            "category_id" => "required|numeric",
+            "photo" => "nullable|max:1024",
+            "code" => "required|min:2|max:20|unique:products,name," . $id,
+            "price" => "required|regex:/^\d*(\.\d{2})?$/",
+            "Offer_price" => "nullable|regex:/^\d*(\.\d{2})?$/",
+            "short_description" => "required",
+            "long_description" => "required",
+            "popular" => "required",
+            "active" => "required",
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+        else {
+            $product = Product::find($id);
+
+            if ($photo = $request->file("photo")) {
+
+                if (file_exists($product->photo)) {
+                    unlink($product->photo);
+                }
+                $imgURL = $this->saveImage($photo);
+            } else
+                $imgURL = $product->photo;
+
+            $product->saveProductInfo($request, $product, $imgURL);
+
+            return response()->json("seccess");
+        }
     }
 
     /**

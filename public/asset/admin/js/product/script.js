@@ -30,14 +30,14 @@ $(function () {
                     $("#viewProductModal").modal("show");
 
                     $("#viewProductModalLabel").text(data.name + "'s Data");
-                    $("#pPhoto").attr("src", window.location.origin+'/'+data.photo);
+                    $("#pPhoto").attr("src", window.location.origin + '/' + data.photo);
                     $("#pName").text(data.name);
                     $("#pCategory").text(data.category.name);
                     $("#pCode").text(data.code);
                     $("#pPrice").text(data.price);
                     $("#pOfferPrice").text(data.Offer_price);
                     $("#pSDescription").text(data.short_description);
-                    $("#pLDescription").html( data.long_description );
+                    $("#pLDescription").html(data.long_description);
                     $("#pPopular").text(data.popular == 1 ? "Popular" : "Unpopular");
                     $("#pActive").text(data.active == 1 ? "Active" : "Inactive");
                     $("#pDate").text(data.created_at);
@@ -75,7 +75,7 @@ $(function () {
                     dataType: "JSON",
                     success: (data) => {
                         if (data = "Delete")
-                        getAllProduct();
+                            getAllProduct();
                     }
                 })
                 Swal.fire(
@@ -91,21 +91,19 @@ $(function () {
 
     $(document).on("submit", "#addProductForm", function (event) {
         event.preventDefault();
-
-        $(".errorName").css("display", "none");
-        $(".errorCategoryName").css("display", "none");
-        $(".errorProductCode").css("display", "none");
-        $(".errorProductPrice").css("display", "none");
-        $(".errorProductOfferPrice").css("display", "none");
-        $(".errorProductShortDescription").css("display", "none");
-        $(".errorProductLongDescription").css("display", "none");
-        $(".errorProductPhoto").css("display", "none");
-
+        displayNone();
 
         let url = $(this).attr("action");
-        let method = $(this).attr("method");
-        
-        let data = new FormData(this);
+        let message = "A new Product Save";
+
+        saveProductInfo(this, url, message, "#addProductModal");
+    });
+
+
+    const saveProductInfo = (form, url, message, modal) => {
+
+        let method = $(form).attr("method");
+        let data = new FormData(form);
 
         $.ajax({
             url: url,
@@ -118,9 +116,17 @@ $(function () {
             success: (data) => {
 
                 if (data == "seccess") {
-                    $("#addProductModal").modal("hide");
-                    $(this)[0].reset();
-                    return getAllProduct();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: message,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    $(modal).modal("hide");
+                    $(form)[0].reset();
+                    getAllProduct();
+
                 } else {
                     if (data.name) {
                         $(".errorName").css("display", "block");
@@ -157,20 +163,35 @@ $(function () {
                 }
             }
         })
-    });
+    }
+
+    const displayNone = () => {
+
+        $(".errorName").css("display", "none");
+        $(".errorCategoryName").css("display", "none");
+        $(".errorProductCode").css("display", "none");
+        $(".errorProductPrice").css("display", "none");
+        $(".errorProductOfferPrice").css("display", "none");
+        $(".errorProductShortDescription").css("display", "none");
+        $(".errorProductLongDescription").css("display", "none");
+        $(".errorProductPhoto").css("display", "none");
+
+        $(".photoView").attr('src', '');
+    }
+
     // Upload image---------------------------------
-    $(document).on("change", "#photo", function () {
-        $("#photoView").attr('src', "");
+    $(document).on("change", ".photo", function () {
+        $(".photoView").attr('src', "");
         let file = event.target.files[0];
         let reader = new FileReader();
 
         if (file["size"] <= 1048576) {
             reader.onload = (e) => {
-                $("#photoView").attr('src', e.target.result);
+                $(".photoView").attr('src', e.target.result);
             };
             reader.readAsDataURL(file);
         } else {
-            $("#photo").val("");
+            $(".photo").val("");
             Swal.fire({
                 type: 'error',
                 title: 'Oops...',
@@ -180,19 +201,21 @@ $(function () {
     });
 
     // Edit---------------------------------
-    $(document).on("click", "#edit", function(event){
+    $(document).on("click", "#edit", function (event) {
         event.preventDefault();
+        displayNone();
+
         $("#editProductModal").modal("show");
 
-        let url = $(this).attr("href")+'/edit';
+        let url = $(this).attr("href") + '/edit';
 
         $.ajax({
             url: url,
             type: "GET",
             dataType: "JSON",
-            success: (data)=> {
+            success: (data) => {
 
-                $("#editProductModalLabel").text(data.name+"'s Data");
+                $("#editProductModalLabel").text(data.name + "'s Data");
 
                 $("#valueId").val(data.id);
                 $("#valueName").val(data.name);
@@ -201,13 +224,24 @@ $(function () {
                 $("#valueProductPrice").val(data.price);
                 $("#valueProductOfferPrice").val(data.Offer_price);
                 $("#valueProductShortDescription").val(data.short_description);
-                $("#valueProductLongDescription").val( data.long_description );
+                $("#valueProductLongDescription").val(data.long_description);
                 $("#popular-" + data.popular).prop('checked', true);
                 $("#active-" + data.active).prop('checked', true);
-                $("#vPhotoView").attr("src", window.location.origin+'/'+data.photo);;
+                $(".photoView").attr("src", window.location.origin + '/' + data.photo);;
             }
         });
     });
 
+    // Update---------------------------------
+    $(document).on("submit", "#updateProductForm", function (event) {
+        event.preventDefault();
+
+        let id = $("#valueId").val();
+        let url = $(this).attr("action") + "/" + id;
+        let message = "Product info update";
+
+        saveProductInfo(this, url, message, "#editProductModal");
+
+    })
 
 })

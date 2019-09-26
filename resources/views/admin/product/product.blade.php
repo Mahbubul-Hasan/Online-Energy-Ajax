@@ -130,7 +130,7 @@
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-text-height"></i></span>
                           </div>
-                          <textarea class="form-control" placeholder="Long Description" name="long_description"></textarea>
+                          <textarea class="form-control" placeholder="Long Description" rows="5" name="long_description"></textarea>
                       </div>
                       <p class="errorProductLongDescription" style="display: none; color: red;"></p>
     
@@ -157,8 +157,8 @@
                           <span class="input-group-text"><i class="fas fa-camera"></i></span>
                         </div>
                         <div class="">
-                          <input id="photo" type="file" name="photo" accept="image/*">
-                          <img id="photoView" src="" width="80"/>
+                          <input class="photo" type="file" name="photo" accept="image/*">
+                          <img class="photoView" src="" width="80"/>
                         </div>
                       </div>
                       <p class="errorProductPhoto" style="display: none; color: red;"></p>
@@ -246,6 +246,7 @@
       <div class="modal-content">
           <form id="updateProductForm" action="{{ url("admin/products") }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method("PUT")
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editProductModalLabel"></h5>
@@ -342,8 +343,8 @@
                         <span class="input-group-text"><i class="fas fa-camera"></i></span>
                       </div>
                       <div class="">
-                        <input id="photo" type="file" name="photo" accept="image/*">
-                        <img id="vPhotoView" src="" width="80"/>
+                        <input class="photo" type="file" name="photo" accept="image/*">
+                        <img class="photoView" src="" width="80"/>
                       </div>
                     </div>
                     <p class="errorProductPhoto" style="display: none; color: red;"></p>
