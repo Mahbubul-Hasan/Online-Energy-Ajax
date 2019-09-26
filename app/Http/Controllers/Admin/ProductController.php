@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -49,7 +50,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             "name" => "required|min:5|max:100",
             "category_id" => "required|numeric",
-            "photo" => "required",
+            "photo" => "required|max:1024",
             "code" => "required|min:2|max:20",
             "price" => "required|regex:/^\d*(\.\d{2})?$/",
             "Offer_price" => "nullable|regex:/^\d*(\.\d{2})?$/",
@@ -62,7 +63,19 @@ class ProductController extends Controller
         if ($validator->fails()) 
             return response()->json($validator->errors());
         else{
-            return $request->all();
+            
+            $photo = $request->file("photo");
+            $folder = "asset/admin/img/products/";
+            $name = "IMG_".date("Ymd_his").".".$photo->getClientOriginalExtension();
+                
+            Image::make($photo)->resize(640, 480)->save($folder.$name);
+
+            $imgURL = $folder.$name;
+
+            $product = new Product();
+            $product->saveProductInfo($request, $product, $imgURL);
+
+            return response()->json("seccess");   
         }
     }
 

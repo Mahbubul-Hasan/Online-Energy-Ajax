@@ -46,7 +46,7 @@
           <tr>
               <td>{{ $i++ }}</td>
               <td>
-                <img src="{{ $product->photo }}" width="80"/>
+                <img src="{{ asset($product->photo) }}" width="80"/>
               </td>
               <td>{{ $product->name }}</td>
               <td>{{ $product->category->name }}</td>
@@ -54,7 +54,7 @@
               <td>{{ $product->price }}</td>
               <td>{{ $product->Offer_price }}</td>
               <td>{{ substr($product->short_description	, 0, 50) }}...</td>
-              <td>{{ substr($product->long_description	, 0, 50) }}...</td>
+              <td>{!! substr($product->long_description	, 0, 50) !!}...</td>
               <td>{{ $product->popular == 1 ? "Popular" : "Unpopular" }}</td>
               <td>{{ $product->active == 1 ? "Active" : "Inactive" }}</td>
               <td>{{ $product->created_at->format("d-m-Y & h:i:a") }}</td>

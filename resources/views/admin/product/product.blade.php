@@ -87,7 +87,7 @@
                       <label class="input-group-text" for="inputGroupSelect01">Options</label>
                     </div>
                     <select class="custom-select" id="inputGroupSelect01" name="category_id">
-                      <option selected>Choose Category Name...</option>
+                      <option value="" selected>Choose Category Name...</option>
                       @foreach ($categories as $category)
                       <option value="{{ $category->id }}">{{ $category->name }}</option>
                       @endforeach
@@ -159,12 +159,9 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-camera"></i></span>
                     </div>
-                    {{-- <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="photo" accept="image/*">
-                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div> --}}
                     <div class="">
                       <input id="photo" type="file" name="photo" accept="image/*">
+                      <img id="photoView" src="" width="80"/>
                     </div>
                   </div>
                   <p class="errorProductPhoto" style="display: none; color: red;"></p>
