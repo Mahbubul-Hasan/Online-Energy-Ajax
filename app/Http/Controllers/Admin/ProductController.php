@@ -99,7 +99,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::with("category")->where("id", $id)->first();
+        return $product;
     }
 
     /**

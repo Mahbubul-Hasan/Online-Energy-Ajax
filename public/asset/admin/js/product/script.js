@@ -1,4 +1,7 @@
 $(function () {
+
+    let active = 0;
+
     // All product-----------------------------------------
     const getAllProduct = () => {
         let url = $("#getAllProduct").data("url");
@@ -71,9 +74,8 @@ $(function () {
                     },
                     dataType: "JSON",
                     success: (data) => {
-                        if (data = "Delete") {
-                            return getAllProduct();
-                        }
+                        if (data = "Delete")
+                        getAllProduct();
                     }
                 })
                 Swal.fire(
@@ -156,7 +158,7 @@ $(function () {
             }
         })
     });
-
+    // Upload image---------------------------------
     $(document).on("change", "#photo", function () {
         $("#photoView").attr('src', "");
         let file = event.target.files[0];
@@ -176,5 +178,36 @@ $(function () {
             })
         }
     });
+
+    // Edit---------------------------------
+    $(document).on("click", "#edit", function(event){
+        event.preventDefault();
+        $("#editProductModal").modal("show");
+
+        let url = $(this).attr("href")+'/edit';
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: (data)=> {
+
+                $("#editProductModalLabel").text(data.name+"'s Data");
+
+                $("#valueId").val(data.id);
+                $("#valueName").val(data.name);
+                $("#selectCategory").val(data.category.id);
+                $("#valueProductCode").val(data.code);
+                $("#valueProductPrice").val(data.price);
+                $("#valueProductOfferPrice").val(data.Offer_price);
+                $("#valueProductShortDescription").val(data.short_description);
+                $("#valueProductLongDescription").val( data.long_description );
+                $("#popular-" + data.popular).prop('checked', true);
+                $("#active-" + data.active).prop('checked', true);
+                $("#vPhotoView").attr("src", window.location.origin+'/'+data.photo);;
+            }
+        });
+    });
+
 
 })
