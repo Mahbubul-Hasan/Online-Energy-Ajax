@@ -161,6 +161,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        if (file_exists($product->photo)) {
+            unlink($product->photo);
+        }
         $product->delete();
 
         return response()->json("Delete");
