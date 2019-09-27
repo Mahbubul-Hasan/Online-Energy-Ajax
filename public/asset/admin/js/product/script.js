@@ -261,4 +261,22 @@ $(function () {
         });
     });
 
+    // Search---------------------------------------------------------
+    $(document).on("keyup", ".admin-search", function (event) {
+        setTimeout(() => {
+            let key = $(this).val();
+            let url = $("#product-search").data("url") + "?key=" + key;
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "HTML",
+                success: (data) => {
+                    $("#showAllProduct").html(data);
+                }
+            });
+        }, 1000);
+
+    });
+
 })

@@ -7,12 +7,12 @@ $(function () {
 
 
     // Add------------------------------------------------------------
-    $(document).on("submit", "#addCategoryForm", function(event) {
+    $(document).on("submit", "#addCategoryForm", function (event) {
         event.preventDefault();
         let url = $(this).attr("action");
         let message = "A new Category Save"
         return seveCategoryInfo(this, "#addCategoryModal", url, message);
-        
+
     });
 
 
@@ -26,14 +26,12 @@ $(function () {
             type: method,
             data: data,
             dataType: "JSON",
-            beforeSend: () => {
-            },
+            beforeSend: () => {},
             success: (data) => {
-                if (data.name)
-                {
+                if (data.name) {
                     $(".errorName").css("display", "block");
                     $(".errorName").html(data.name);
-                }else {
+                } else {
                     Swal.fire({
                         position: 'top-end',
                         type: 'success',
@@ -46,8 +44,7 @@ $(function () {
                     return getAllcategory();
                 }
             },
-            complete: () => {
-            },
+            complete: () => {},
         })
     }
 
@@ -64,8 +61,8 @@ $(function () {
         })
     };
 
-// View------------------------------------------------------------
-    $(document).on("click", "#view", function(event) {
+    // View------------------------------------------------------------
+    $(document).on("click", "#view", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
         $.ajax({
@@ -73,8 +70,7 @@ $(function () {
             typr: "GET",
             dataType: "JSON",
             success: (data) => {
-                if(! $.isEmptyObject(data))
-                {
+                if (!$.isEmptyObject(data)) {
                     $("#viewCategoryModal").modal("show");
                     $("#viewCategoryModalLabel").text(data.name + "'s Data");
 
@@ -86,7 +82,7 @@ $(function () {
             }
         })
     });
-// Delete------------------------------------------------------------
+    // Delete------------------------------------------------------------
     $(document).on("click", "#delete", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
@@ -105,9 +101,12 @@ $(function () {
                 $.ajax({
                     url: url,
                     type: 'POST',
-                    data: {_method: 'delete', _token :token},
+                    data: {
+                        _method: 'delete',
+                        _token: token
+                    },
                     dataType: "JSON",
-                    success: function(data) {
+                    success: function (data) {
                         if (data === "delete")
                             return getAllcategory();
                     },
@@ -126,7 +125,7 @@ $(function () {
     $(document).on("click", "#edit", function (event) {
         event.preventDefault();
 
-        let url = $(this).attr("href") +'/edit';
+        let url = $(this).attr("href") + '/edit';
         $(".errorName").css("display", "none")
 
         $.ajax({
@@ -138,32 +137,32 @@ $(function () {
                 $("#eId").val(data.id);
                 $("#eName").val(data.name);
                 $("#eDescription").val(data.description);
-                
+
                 $("#active-" + data.active).prop('checked', true);
-                $("#editCategoryModalLabel").text("Update "+data.name +"'s Data")
+                $("#editCategoryModalLabel").text("Update " + data.name + "'s Data")
             }
         })
     });
 
     // Update------------------------------------------------------------
-    $(document).on("submit", "#updateCategoryForm", function(event) {
+    $(document).on("submit", "#updateCategoryForm", function (event) {
         event.preventDefault();
-        
-        let id  = $("#eId").val();
-        let url = $(this).attr("action")+ "/" + id;
+
+        let id = $("#eId").val();
+        let url = $(this).attr("action") + "/" + id;
         console.log(url)
         let message = "Category info update";
-        return seveCategoryInfo(this,"#editCategoryModal", url, message);
+        return seveCategoryInfo(this, "#editCategoryModal", url, message);
     });
 
     // pagination---------------------------------------------------------
-    $(document).on("click", ".pagination li a", function(event){
+    $(document).on("click", ".pagination li a", function (event) {
         event.preventDefault();
 
         let url = $(this).attr("href");
         let pageNumber = url.split("?page=")[1];
 
-        let newUrl = $("#getAllcategoryByPagination").data("url")+ "?page=" + pageNumber;
+        let newUrl = $("#getAllcategoryByPagination").data("url") + "?page=" + pageNumber;
 
         $.ajax({
             url: newUrl,
@@ -175,12 +174,13 @@ $(function () {
         });
     });
 
-    $(document).on("keyup", ".admin-search", function(){
+    // Search---------------------------------------------------------
+    $(document).on("keyup", ".admin-search", function () {
 
         setTimeout(() => {
             let key = $(".admin-search").val();
-            let url = $("#category-search").data("url")+ "?key=" + key; 
-            
+            let url = $("#category-search").data("url") + "?key=" + key;
+
             $.ajax({
                 url: url,
                 type: "GET",

@@ -32,7 +32,7 @@
           <div class="col-md-10">
               
               <input class="admin-search" type="text" placeholder="Search" name="search" />
-              <div id="category-search" data-url=""></div>
+              <div id="product-search" data-url="{{ url("/admin/productSearch") }}"></div>
           </div>
 
           <div class="card-tools">

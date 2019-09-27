@@ -165,4 +165,24 @@ class ProductController extends Controller
 
         return response()->json("Delete");
     }
+
+    public function productSearch()
+    {
+        $key = \Request::get("key");
+
+        if ($key != null) {
+            $data["products"] = Product::with("category")->where("name", "LIKE", "%$key%")
+                ->orWhere("code", "LIKE", "%$key%")
+                ->orWhere("price", "LIKE", "%$key%")
+                ->orWhere("Offer_price", "LIKE", "%$key%")
+                ->orWhere("short_description", "LIKE", "%$key%")
+                ->orWhere("long_description", "LIKE", "%$key%")
+                ->orWhere("long_description", "LIKE", "%$key%")
+                ->orderBy("id", "desc")
+                ->paginate(10);
+        } else
+            $data["products"] = Product::with("category")->orderBy("id", "desc")->paginate(5);
+
+        return view("admin.product.getAllProduct")->with($data);
+    }
 }
