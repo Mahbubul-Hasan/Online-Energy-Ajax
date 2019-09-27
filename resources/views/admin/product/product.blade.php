@@ -53,7 +53,7 @@
       </div>
 </div>
 <div id="getAllProduct" data-url="{{ url("/admin/getAllProduct") }}"></div>
-  {{-- <div id="getAllcategoryByPagination" data-url="{{ url("/admin/getAllcategoryByPagination") }}"></div> --}}
+<div id="getAllProductByPagination" data-url="{{ url("/admin/getAllProductByPagination") }}"></div>
 
 
 <!--Add Product Modal -->

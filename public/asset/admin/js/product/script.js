@@ -99,7 +99,7 @@ $(function () {
         saveProductInfo(this, url, message, "#addProductModal");
     });
 
-
+    // Add & Update----------------------------------------------------
     const saveProductInfo = (form, url, message, modal) => {
 
         let method = $(form).attr("method");
@@ -242,6 +242,23 @@ $(function () {
 
         saveProductInfo(this, url, message, "#editProductModal");
 
-    })
+    });
+
+    // Pagination-------------------------------------------------
+    $(document).on("click", ".pagination a", function (event) {
+        event.preventDefault();
+
+        let pageNumber = $(this).attr("href").split("?page=")[1];
+        let url = $("#getAllProductByPagination").data("url") + "?page=" + pageNumber;
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: (data) => {
+                $("#showAllProduct").html(data);
+            }
+        });
+    });
 
 })
