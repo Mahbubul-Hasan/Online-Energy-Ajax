@@ -644,7 +644,7 @@ ul.nav.tabs {
     padding: 1em 0;
 }
 .mid-1 {
-    padding: 3em 0 0;
+    padding: 1em 0 0;
 }
 .block {
     float: right;
@@ -665,10 +665,10 @@ ul.nav.tabs {
 	width: 55%;
 }
 .offer{
-	    position: absolute;
+	position: absolute;
     top: 0;
     right: -15px;
-    border: 2px solid #ED0612;
+    border: 5px solid #ED0612;
     border-radius: 100px 0 0 100px;
     padding: 2px;
 }
