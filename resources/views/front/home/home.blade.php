@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <!--content-->
+    <!--Offer Products-->
     <div class="content-top ">
         <div class="container ">
             <div class="spec ">
@@ -35,6 +35,61 @@
                             </div>
                             <div class="mid-2">
                                 <p><label>৳ {{ $offerProduct->price }}</label><strong class="item_price">৳ {{ $offerProduct->Offer_price }}</strong></p>
+                                <div class="block">
+                                    <div class="starbox small ghosting"> </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="add">
+                                <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+
+                <div class="clearfix"></div>
+            </div>
+            <a href="#">
+                <p style="text-align: center; margin-top: 10px"><strong>See ALL...</strong></p>
+            </a>
+        </div>
+    </div>
+    
+    
+    <!--Popular Products-->
+    <div class="content-top ">
+        <div class="container ">
+            <div class="spec ">
+                <h3>Popular Products</h3>
+                <div class="ser-t">
+                    <b></b>
+                    <span><i></i></span>
+                    <b class="line"></b>
+                </div>
+            </div>
+
+
+            <div class="con-w3l">
+                @foreach ($popular_products as $popularProduct)              
+                
+                <div class="col-md-3 m-wthree">
+                    <div class="col-m">
+                        <a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
+                            <img src="{{ $popularProduct->photo }}" class="img-responsive" alt="" style="width: 100%">                            
+                        </a>
+                        <div class="mid-1">
+                            <div class="women" style="height: 60px;">
+                                <b><a href="single.html">{{ $popularProduct->name }}</a> (1 kg)</b>
+                            </div>
+                            <div class="mid-2">
+                                @if ($popularProduct->Offer_price )                                    
+                                <p><del>৳ {{ $popularProduct->price }}</del><strong class="item_price">৳ {{ $popularProduct->Offer_price }}</strong></p>
+                                @else
+                                <p><strong>৳ {{ $popularProduct->price }}</strong></p>                                    
+                                @endif
                                 <div class="block">
                                     <div class="starbox small ghosting"> </div>
                                 </div>
