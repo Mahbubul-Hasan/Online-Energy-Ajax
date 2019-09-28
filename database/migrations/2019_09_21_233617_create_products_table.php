@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('name',100)->unique();
             $table->string('code',20)->unique();
             $table->string('photo')->nullable();
+            $table->float("quantity");
             $table->decimal('price', 10, 2);
             $table->decimal('Offer_price', 10, 2)->nullable();
             $table->text('short_description');
