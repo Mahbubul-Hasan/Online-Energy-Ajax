@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (Schema::hasTable('categories')) {
-            $data["categories"] = Category::select("id", "name")->where("active", 1)->orderBy('id', 'DESC')->get();
+            $size = Category::count() / 2;
+            $data["categories_1"] = Category::where("active", "1")->take($size)->orderBy("id", "desc")->get();
+            $data["categories_2"] = Category::where("active", "1")->skip($size)->take($size)->orderBy("id", "desc")->get();
             view()->share($data);
         }
     }
