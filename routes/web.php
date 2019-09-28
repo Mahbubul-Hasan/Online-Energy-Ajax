@@ -13,3 +13,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.'], fun
     Route::get('/getAllProductByPagination', 'ProductController@getAllProduct');
     Route::get('/productSearch', 'ProductController@productSearch');
 });
+
+Route::group(['namespace' => 'Front'], function () {
+    Route::get('/', "HomeController@index");
+});
