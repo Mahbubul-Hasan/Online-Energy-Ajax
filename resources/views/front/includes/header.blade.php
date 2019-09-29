@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="logo">
-            <h1><a href="index.html"><b>T<br>H<br>E</b>{{ config("app.name") }}<span>The Best Supermarket</span></a></h1>
+            <h1><a href="{{ route("/") }}"><b>T<br>H<br>E</b>{{ config("app.name") }}<span>The Best Supermarket</span></a></h1>
         </div>
         <div class="head-t">
             <ul class="card">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav ">
-                        <li id="main-manu-1" class=" "><a href="index.html" class="hyper "><span>Home</span></a></li>
+                        <li id="main-manu-1" class=" "><a href="{{ route("/") }}" class="hyper "><span>Home</span></a></li>
 
                         <li id="main-manu-2" class="dropdown">
                             <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown"><span>Category<b class="caret"></b></span></a>
