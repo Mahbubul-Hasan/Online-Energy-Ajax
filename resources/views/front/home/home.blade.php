@@ -191,10 +191,11 @@ Home
             </div>
         </div>
 
-        @if ($all_products->count() <= 0) <div class="alert alert-warning">
-            <strong>Warning!</strong> Indicates a warning that might need attention.
-    </div>
-    @else
+        @if ($all_products->count() <= 0) 
+        <div class="alert alert-warning">
+            <strong>Sorry!!!</strong> No data found.
+        </div>
+        @else
     <div class="con-w3l">
         @foreach ($all_products as $product)
 

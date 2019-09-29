@@ -19,7 +19,7 @@ Category/Products
 
         @if ($category_products->count() <= 0) 
         <div class="alert alert-warning">
-            <strong>Warning!</strong> Indicates a warning that might need attention.
+            <strong>Sorry!!!</strong> No data found.
         </div>
         @else
     <div class="con-w3l">
