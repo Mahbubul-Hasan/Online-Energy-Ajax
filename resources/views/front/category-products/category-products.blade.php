@@ -108,7 +108,7 @@ Category/Products
 
             <div class="clearfix"></div>
         </div>
-        <a href="#">
+        <a href="{{ route("offer.products") }}">
             <p style="text-align: center; margin-top: 10px; margin-bottom: 30px;"><strong>See ALL...</strong></p>
         </a>
     </div>
