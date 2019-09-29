@@ -38,4 +38,11 @@ class HomeController extends Controller
         return view('front.popular-products.popular-products')->with($date);
         return $date;
     }
+    public function productModal($id)
+    {        
+        $product = Product::find($id);
+        
+        // return view('front.popular-products.popular-products')->with($date);
+        return $product;
+    }
 }
