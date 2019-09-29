@@ -44,16 +44,16 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav ">
-                        <li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>
+                        <li id="main-manu-1" class=" "><a href="index.html" class="hyper "><span>Home</span></a></li>
 
-                        <li class="dropdown ">
+                        <li id="main-manu-2" class="dropdown">
                             <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown"><span>Category<b class="caret"></b></span></a>
                             <ul class="dropdown-menu multi">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <ul class="multi-column-dropdown">
                                             @foreach ($categories_1 as $category)
-                                            <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>{{ $category->name }}</a></li>                                            
+                                            <li><a href="{{ route("category.products", ["id" => $category->id]) }}"><i class="fa fa-angle-right" aria-hidden="true"></i>{{ $category->name }}</a></li>                                            
                                             @endforeach
 
                                         </ul>
@@ -63,7 +63,7 @@
 
                                         <ul class="multi-column-dropdown">
                                             @foreach ($categories_2 as $category)
-                                            <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>{{ $category->name }}</a></li>                                            
+                                            <li><a href="{{ route("category.products", ["id" => $category->id]) }}"><i class="fa fa-angle-right" aria-hidden="true"></i>{{ $category->name }}</a></li>                                            
                                             @endforeach
 
                                         </ul>
@@ -74,7 +74,7 @@
                             </ul>
                         </li>
 
-                        <li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
+                        <li id="main-manu-3"><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -87,3 +87,11 @@
 
     </div>
 </div>
+
+<script>
+    $(window).load(function() {
+        $('#main-manu-1').addClass('active');
+        $('#main-manu-2').removeClass('active');
+        $('#main-manu-3').removeClass('active');
+    });
+</script>

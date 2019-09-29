@@ -80,9 +80,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     @include('front.includes.header')
 
-    <!-- Carousel-->
-    @include('front.includes.carouselSlide')
-    <!-- /.carousel -->
 
     @yield('content')
 
@@ -154,7 +151,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         });
     </script>
-    
+
 </body>
 
 </html>
