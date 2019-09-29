@@ -75,7 +75,7 @@
                         </li>
 
                         <li id="main-manu-3"><a href="{{ route("offer.products") }}" class="hyper"><span>Offer</span></a></li>
-                        <li id="main-manu-4"><a href="contact.html" class="hyper"><span>Popular</span></a></li>
+                        <li id="main-manu-4"><a href="{{ route("popular.products") }}" class="hyper"><span>Popular</span></a></li>
                         <li id="main-manu-5"><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
                     </ul>
                 </div>

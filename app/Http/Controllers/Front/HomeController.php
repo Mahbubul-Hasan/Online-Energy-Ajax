@@ -31,4 +31,11 @@ class HomeController extends Controller
         return view('front.offer-products.offer-products')->with($date);
         return $date;
     }
+    public function pooularProducts()
+    {        
+        $date["popular_products"] = Product::select("id", "name", "photo", "price", "Offer_price")->where("active", 1)->where("popular", 1)->orderBy("id", "desc")->get();
+        $date["offer_products"] = Product::select("id", "name", "photo", "price", "Offer_price")->where("active", 1)->where("Offer_price", "!=", null)->take(4)->orderBy("id", "desc")->get();
+        return view('front.popular-products.popular-products')->with($date);
+        return $date;
+    }
 }
