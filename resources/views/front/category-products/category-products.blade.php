@@ -77,7 +77,7 @@ Category/Products
         <div class="con-w3l">
             @foreach ($offer_products as $offerProduct)
 
-            <div class="col-md-3 m-wthree">
+            <div class="col-md-3 m-wthree"  style="margin-bottom: 30px">
                 <div class="col-m">
                     <a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
                         <img src="{{ $offerProduct->photo }}" class="img-responsive" alt="" style="width: 100%">
@@ -150,9 +150,15 @@ Category/Products
 
 <script>
     $(window).load(function() {
+
         $('#main-manu-2').addClass('active');
-        $('#main-manu-1').removeClass('active');
-        $('#main-manu-3').removeClass('active');
+
+        for (let i = 1; i <= 5; i++){
+            if (i == 2) {
+                continue;
+            }
+            $('#main-manu-'+ i).removeClass('active');
+        }
     });
 </script>
 @endsection

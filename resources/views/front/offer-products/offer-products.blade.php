@@ -1,17 +1,13 @@
 @extends("front.master")
 
 @section('title')
-Home
+Offer/Products
 @endsection
 
 @section('content')
 
-<!-- Carousel-->
-@include('front.includes.carouselSlide')
-<!-- /.carousel -->
-
 <!--Offer Products-->
-@if ($offer_products->count() > 0)
+
 <div class="content-top ">
     <div class="container ">
         <div class="spec ">
@@ -23,11 +19,18 @@ Home
             </div>
         </div>
 
+        @if ($offer_products->count() < 0)
+
+        <div class="alert alert-warning">
+            <strong>Sorry!!!</strong> No data found.
+        </div>
+            
+        @else
 
         <div class="con-w3l">
             @foreach ($offer_products as $offerProduct)
 
-            <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
+            <div class="col-md-3 m-wthree"  style="margin-bottom: 30px">
                 <div class="col-m">
                     <a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
                         <img src="{{ $offerProduct->photo }}" class="img-responsive" alt="" style="width: 100%">
@@ -59,12 +62,12 @@ Home
             <div class="clearfix"></div>
         </div>
         <a href="#">
-            <p style="text-align: center; margin-top: 10px"><strong>See ALL...</strong></p>
+            <p style="text-align: center; margin-top: 10px; margin-bottom: 30px;"></p>
         </a>
+        
+        @endif
     </div>
 </div>
-@endif
-
 
 <!--Popular Products-->
 @if ($popular_products->count() > 0)
@@ -116,124 +119,11 @@ Home
             <div class="clearfix"></div>
         </div>
         <a href="#">
-            <p style="text-align: center; margin-top: 10px"><strong>See ALL...</strong></p>
+            <p style="text-align: center; margin-top: 10px; margin-bottom: 30px;"><strong>See ALL...</strong></p>
         </a>
     </div>
 </div>
 @endif
-
-
-<!--content-->
-@if ($offer_products->count() > 0 || $popular_products->count() > 0)
-<div class="content-mid">
-    <div class="container">
-
-        <div class="col-md-4 m-w3ls">
-            <div class="col-md1 ">
-                <a href="kitchen.html">
-                    <img src="{{ asset("/") }}asset/front/images/co1.jpg" class="img-responsive img" alt="">
-                    <div class="big-sa">
-                        <h6>New Collections</h6>
-                        <h3>Season<span>ing </span></h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority </p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 m-w3ls1">
-            <div class="col-md ">
-                <a href="hold.html">
-                    <img src="{{ asset("/") }}asset/front/images/co.jpg" class="img-responsive img" alt="">
-                    <div class="big-sale">
-                        <div class="big-sale1">
-                            <h3>Big <span>Sale</span></h3>
-                            <p>It is a long established fact that a reader </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 m-w3ls">
-            <div class="col-md2 ">
-                <a href="kitchen.html">
-                    <img src="{{ asset("/") }}asset/front/images/co2.jpg" class="img-responsive img1" alt="">
-                    <div class="big-sale2">
-                        <h3>Cooking <span>Oil</span></h3>
-                        <p>It is a long established fact that a reader </p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md3 ">
-                <a href="hold.html">
-                    <img src="{{ asset("/") }}asset/front/images/co3.jpg" class="img-responsive img1" alt="">
-                    <div class="big-sale3">
-                        <h3>Vegeta<span>bles</span></h3>
-                        <p>It is a long established fact that a reader </p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-@endif
-<!--content-->
-
-<!--All Products-->
-<div class="content-top ">
-    <div class="container ">
-        <div class="spec ">
-            <h3>All Products</h3>
-            <div class="ser-t">
-                <b></b>
-                <span><i></i></span>
-                <b class="line"></b>
-            </div>
-        </div>
-
-        @if ($all_products->count() <= 0) 
-        <div class="alert alert-warning">
-            <strong>Sorry!!!</strong> No data found.
-        </div>
-        @else
-    <div class="con-w3l">
-        @foreach ($all_products as $product)
-
-        <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
-            <div class="col-m">
-                <a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
-                    <img src="{{ $product->photo }}" class="img-responsive" alt="" style="width: 100%">
-                </a>
-                <div class="mid-1">
-                    <div class="women" style="height: 60px;">
-                        <b><a href="single.html">{{ $product->name }}</a> (1 kg)</b>
-                    </div>
-                    <div class="mid-2">
-                        @if ($product->Offer_price )
-                        <p><del>৳ {{ $product->price }}</del><strong class="item_price">৳ {{ $product->Offer_price }}</strong></p>
-                        @else
-                        <p><strong>৳ {{ $product->price }}</strong></p>
-                        @endif
-                        <div class="block">
-                            <div class="starbox small ghosting"> </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="add">
-                        <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        @endforeach
-
-        <div class="clearfix"></div>
-    </div>
-    @endif
-</div>
-</div>
 
 <!-- product -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -267,4 +157,17 @@ Home
         </div>
     </div>
 </div>
+
+<script>
+    $(window).load(function() {
+        $('#main-manu-3').addClass('active');
+
+        for (let i = 1; i <= 5; i++){
+            if (i == 3) {
+                continue;
+            }
+            $('#main-manu-'+ i).removeClass('active');
+        }
+    });
+</script>
 @endsection

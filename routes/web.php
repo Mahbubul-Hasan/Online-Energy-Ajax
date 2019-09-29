@@ -17,4 +17,5 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.'], fun
 Route::group(['namespace' => 'Front'], function () {
     Route::get('/', "HomeController@index")->name("/");
     Route::get('/category/products/{id}', "HomeController@categoryProducts")->name("category.products");
+    Route::get('/offer/products', "HomeController@offerProducts")->name("offer.products");
 });

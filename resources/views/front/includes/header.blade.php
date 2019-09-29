@@ -74,7 +74,9 @@
                             </ul>
                         </li>
 
-                        <li id="main-manu-3"><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
+                        <li id="main-manu-3"><a href="{{ route("offer.products") }}" class="hyper"><span>Offer</span></a></li>
+                        <li id="main-manu-4"><a href="contact.html" class="hyper"><span>Popular</span></a></li>
+                        <li id="main-manu-5"><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -90,8 +92,14 @@
 
 <script>
     $(window).load(function() {
+
         $('#main-manu-1').addClass('active');
-        $('#main-manu-2').removeClass('active');
-        $('#main-manu-3').removeClass('active');
+
+        for (let i = 1; i <= 5; i++){
+            if (i == 1) {
+                continue;
+            }
+            $('#main-manu-'+ i).removeClass('active');
+        }
     });
 </script>
