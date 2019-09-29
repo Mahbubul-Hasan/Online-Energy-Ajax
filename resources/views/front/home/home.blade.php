@@ -6,6 +6,7 @@
 
 @section('content')
 <!--Offer Products-->
+@if ($offer_products->count() > 0)
 <div class="content-top ">
     <div class="container ">
         <div class="spec ">
@@ -57,9 +58,11 @@
         </a>
     </div>
 </div>
+@endif
 
 
 <!--Popular Products-->
+@if ($popular_products->count() > 0)
 <div class="content-top ">
     <div class="container ">
         <div class="spec ">
@@ -112,8 +115,11 @@
         </a>
     </div>
 </div>
+@endif
+
 
 <!--content-->
+@if ($offer_products->count() > 0 || $popular_products->count() > 0)
 <div class="content-mid">
     <div class="container">
 
@@ -165,6 +171,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
+@endif
 <!--content-->
 
 <!--All Products-->
@@ -179,7 +186,11 @@
             </div>
         </div>
 
-
+        @if ($all_products->count() <= 0)
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> Indicates a warning that might need attention.
+        </div>    
+        @else
         <div class="con-w3l">
             @foreach ($all_products as $product)
 
@@ -215,8 +226,9 @@
 
             <div class="clearfix"></div>
         </div>
+        @endif
     </div>
-</div>>
+</div>
 
 <!-- product -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
