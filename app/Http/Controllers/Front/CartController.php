@@ -15,7 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return view('front.cart-products.allCart-product');
     }
 
     /**
@@ -93,6 +93,13 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Cart::remove($id);
+        return response()->json("delete");
+    }
+    
+    public function cartsRemoveAll()
+    {
+        \Cart::clear();
+        return response()->json("delete");
     }
 }

@@ -113,6 +113,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
+    {{-- Csrf --}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
     <script type='text/javascript' src="{{ asset("/") }}asset/front/js/script.js"></script>
 
 </body>

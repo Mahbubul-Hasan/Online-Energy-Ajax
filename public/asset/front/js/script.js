@@ -32,7 +32,6 @@ $(function () {
         let url = $(this).attr("action");
         let method = $(this).attr("method");
         let data = $(this).serialize();
-        console.log(data);
         $.ajax({
             url: url,
             type: method,
@@ -46,9 +45,104 @@ $(function () {
                         title: 'This is added to card',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }
             },
         });
-    })
+    });
+
+    // Cart Product--------------------------------------------------------
+    const getCastProduct = () => {
+        let url = window.location.origin + "/carts";
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: (data) => {
+                $("#cartProducts").html(data);
+            },
+        })
+    };
+
+
+    // Cart Product--------------------------------------------------------
+    $(document).on("click", "#cart-product", function () {
+        $("#ViewCartModal").modal("show");
+        getCastProduct();
+    });
+    
+    // remove Cart Product--------------------------------------------------------
+    $(document).on("click", "#cartRemove", function (event) {
+        event.preventDefault();
+        let url = $(this).attr("href");
+        let token = $(this).data("token");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE',
+                        _token: token
+                    },
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data === "delete") {
+                            getCastProduct();
+                        }
+                    },
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your product has been removed.',
+                    'success',
+                )
+            }
+        })        
+    });
+    
+    $(document).on("click", "#cartRemoveAll", function (event) {
+        event.preventDefault();
+        let url = $(this).attr("href");
+        let token = $(this).data("token");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        // _method: 'DELETE',
+                        _token: token
+                    },
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data === "delete") {
+                            getCastProduct();
+                        }
+                    },
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your product has been removed.',
+                    'success',
+                )
+            }
+        })
+    });
 });

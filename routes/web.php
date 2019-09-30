@@ -23,4 +23,5 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/single/product/{id}', "HomeController@singleProduct")->name("single.product");
 
     Route::resource('/carts', 'CartController');
+    Route::post('/carts/removeAll', 'CartController@cartsRemoveAll');
 });
