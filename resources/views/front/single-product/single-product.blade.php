@@ -1,63 +1,58 @@
 @extends("front.master")
 
 @section('title')
-Category/Products
+Single/Products
 @endsection
 
 @section('content')
-<!--All Products-->
-<div class="content-top ">
-    <div class="container ">
-        <div class="spec ">
-            <h3>{{ $category->name }}</h3>
-            <div class="ser-t">
-                <b></b>
-                <span><i></i></span>
-                <b class="line"></b>
-            </div>
-        </div>
 
-        @if ($category_products->count() <= 0) 
-        <div class="alert alert-warning">
-            <strong>Sorry!!!</strong> No data found.
-        </div>
-        @else
-    <div class="con-w3l">
-        @foreach ($category_products as $product)
+<div class="single">
+    <div class="container">
+        <div class="single-top-main">
+            <div class="col-md-5 single-top">
+                <div class="single-w3agile">
 
-        <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
-            <div class="col-m">
-                <a href="{{ url("/product/modal", ["id" => $product->id]) }}" id="productModal" class="offer-img">
-                    <img src="{{ $product->photo }}" class="img-responsive" alt="" style="width: 100%">
-                </a>
-                <div class="mid-1">
-                    <div class="women" style="height: 60px;">
-                        <b><a href="{{ route("single.product", ["id" => $product->id]) }}">{{ $product->name }}</a> (1 kg)</b>
+                    <div id="picture-frame">
+                        <img src="{{ $product->photo }}" data-src="{{ $product->photo }}" alt="" class="img-responsive" />
                     </div>
-                    <div class="mid-2">
-                        @if ($product->Offer_price )
-                        <p><del>৳ {{ $product->price }}</del><strong class="item_price">৳ {{ $product->Offer_price }}</strong></p>
-                        @else
-                        <p><strong>৳ {{ $product->price }}</strong></p>
-                        @endif
-                        <div class="block">
-                            <div class="starbox small ghosting"> </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="add">
-                        <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                    </div>
+
+                    <script src="{{ asset("/") }}asset/front/js/jquery.zoomtoo.js"></script>
+                    <script>
+                        $(function() {
+                            $("#picture-frame").zoomToo({
+                                magnify: 1
+                            });
+                        });
+                    </script>
 
                 </div>
             </div>
+            <div class="col-md-7 single-top-left ">
+                <div class="single-right">
+                    <h3>{{ $product->name }}</h3>
+                    <div class="pr-single">
+                        @if ($product->Offer_price )
+                        <p class="reduced "><del>৳ {{ $product->price }}</del><strong class="item_price"> ৳ {{ $product->Offer_price }}</strong></p>
+                        @else
+                        <p class="reduced "><strong>৳ {{ $product->price }}</strong></p>
+                        @endif
+                    </div>
+                    <div class="block block-w3">
+                        <div class="starbox small ghosting"> </div><br>
+                    </div>
+                    
+                    <p class="in-pa"><b>Quick Overview:</b> {{ $product->short_description }} </p>
+                    <p class="in-pa"><b>Full Details:</b> {{ $product->long_description }} </p>
+                    
+                    <div class="add add-3" style="margin-bottom: 30px">
+                        <button class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="Wheat" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/si.jpg">Add to Cart</button>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
         </div>
-
-        @endforeach
-
-        <div class="clearfix"></div>
     </div>
-    @endif
 </div>
 
 <!--Offer Products-->
@@ -77,7 +72,7 @@ Category/Products
         <div class="con-w3l">
             @foreach ($offer_products as $offerProduct)
 
-            <div class="col-md-3 m-wthree"  style="margin-bottom: 30px">
+            <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
                 <div class="col-m">
                     <a href="{{ url("/product/modal", ["id" => $offerProduct->id]) }}" id="productModal" class="offer-img">
                         <img src="{{ $offerProduct->photo }}" class="img-responsive" alt="" style="width: 100%">
@@ -118,17 +113,4 @@ Category/Products
 <!-- product -->
 @include('front.includes.productmodal')
 
-<script>
-    $(window).load(function() {
-
-        $('#main-manu-2').addClass('active');
-
-        for (let i = 1; i <= 5; i++){
-            if (i == 2) {
-                continue;
-            }
-            $('#main-manu-'+ i).removeClass('active');
-        }
-    });
-</script>
 @endsection

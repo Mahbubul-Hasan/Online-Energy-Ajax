@@ -17,7 +17,7 @@ Popular/Products
                 <b class="line"></b>
             </div>
         </div>
-        @if ($popular_products->count() < 0)
+        @if ($popular_products->count() <= 0)
 
         <div class="alert alert-warning">
             <strong>Sorry!!!</strong> No data found.
@@ -35,7 +35,7 @@ Popular/Products
                     </a>
                     <div class="mid-1">
                         <div class="women" style="height: 60px;">
-                            <b><a href="single.html">{{ $popularProduct->name }}</a> (1 kg)</b>
+                            <b><a href="{{ route("single.product", ["id" => $popularProduct->id]) }}">{{ $popularProduct->name }}</a> (1 kg)</b>
                         </div>
                         <div class="mid-2">
                             @if ($popularProduct->Offer_price )
@@ -93,7 +93,7 @@ Popular/Products
                     </a>
                     <div class="mid-1">
                         <div class="women" style="height: 60px;">
-                            <b><a href="single.html">{{ $offerProduct->name }}</a> (1 kg)</b>
+                            <b><a href="{{ route("single.product", ["id" => $offerProduct->id]) }}">{{ $offerProduct->name }}</a> (1 kg)</b>
                         </div>
                         <div class="mid-2">
                             <p><label>৳ {{ $offerProduct->price }}</label><strong class="item_price">৳ {{ $offerProduct->Offer_price }}</strong></p>
