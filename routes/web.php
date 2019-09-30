@@ -21,4 +21,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/popular/products', "HomeController@pooularProducts")->name("popular.products");
     Route::get('/product/modal/{id}', "HomeController@productModal")->name("product.modal");
     Route::get('/single/product/{id}', "HomeController@singleProduct")->name("single.product");
+
+    Route::resource('/carts', 'CartController');
 });

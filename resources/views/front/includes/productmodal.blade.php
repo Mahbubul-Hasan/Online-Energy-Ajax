@@ -21,9 +21,17 @@
                     </div>
                     <h4 class="quick">Quick Overview:</h4>
                     <p class="quick_desc" id="viewOverview"> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p>
-                    <div class="add-to">
-                        <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                    </div>
+                    <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                        @csrf
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon2">Quantity</span>
+                            <input id="viewId" type="hidden" class="form-control" name="id" style="width: 65px">
+                            <input id="viewQuantity" type="number" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                        </div>
+                        <div class="add-to" style="margin-bottom: 30px">
+                            <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="clearfix"> </div>
             </div>

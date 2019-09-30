@@ -44,9 +44,17 @@ Single/Products
                     <p class="in-pa"><b>Quick Overview:</b> {{ $product->short_description }} </p>
                     <p class="in-pa"><b>Full Details:</b> {{ $product->long_description }} </p>
                     
-                    <div class="add add-3" style="margin-bottom: 30px">
-                        <button class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="Wheat" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/si.jpg">Add to Cart</button>
-                    </div>
+                    <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                        @csrf
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon2">Quantity</span>
+                            <input type="hidden" class="form-control" name="id" value="{{ $product->id }}" style="width: 65px">
+                            <input type="number" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                        </div>
+                        <div class="add add-3" style="margin-bottom: 30px">
+                            <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                        </div>
+                    </form>
                     <div class="clearfix"> </div>
                 </div>
             </div>
@@ -91,9 +99,16 @@ Single/Products
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="add">
-                            <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                        </div>
+                        <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                        @csrf
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="id" value="{{ $offerProduct->id }}" style="width: 65px">
+                                <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                            </div>
+                            <div class="add">
+                                <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>

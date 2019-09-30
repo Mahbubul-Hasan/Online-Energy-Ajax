@@ -17,11 +17,10 @@ Category/Products
             </div>
         </div>
 
-        @if ($category_products->count() <= 0) 
-        <div class="alert alert-warning">
+        @if ($category_products->count() <= 0) <div class="alert alert-warning">
             <strong>Sorry!!!</strong> No data found.
-        </div>
-        @else
+    </div>
+    @else
     <div class="con-w3l">
         @foreach ($category_products as $product)
 
@@ -45,9 +44,16 @@ Category/Products
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="add">
-                        <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                    </div>
+                    <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                        @csrf
+                        <div class="input-group">
+                            <input type="hidden" class="form-control" name="id" value="{{ $product->id }}" style="width: 65px">
+                            <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                        </div>
+                        <div class="add">
+                            <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -77,7 +83,7 @@ Category/Products
         <div class="con-w3l">
             @foreach ($offer_products as $offerProduct)
 
-            <div class="col-md-3 m-wthree"  style="margin-bottom: 30px">
+            <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
                 <div class="col-m">
                     <a href="{{ url("/product/modal", ["id" => $offerProduct->id]) }}" id="productModal" class="offer-img">
                         <img src="{{ $offerProduct->photo }}" class="img-responsive" alt="" style="width: 100%">
@@ -96,9 +102,16 @@ Category/Products
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="add">
-                            <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                        </div>
+                        <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="id" value="{{ $offerProduct->id }}" style="width: 65px">
+                                <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                            </div>
+                            <div class="add">
+                                <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -123,11 +136,11 @@ Category/Products
 
         $('#main-manu-2').addClass('active');
 
-        for (let i = 1; i <= 5; i++){
+        for (let i = 1; i <= 5; i++) {
             if (i == 2) {
                 continue;
             }
-            $('#main-manu-'+ i).removeClass('active');
+            $('#main-manu-' + i).removeClass('active');
         }
     });
 </script>

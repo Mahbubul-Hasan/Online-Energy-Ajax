@@ -48,9 +48,16 @@ Popular/Products
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="add">
-                            <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                        </div>
+                        <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="id" value="{{ $popularProduct->id }}" style="width: 65px">
+                                <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                            </div>
+                            <div class="add">
+                                <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -102,9 +109,16 @@ Popular/Products
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="add">
-                            <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="{{ asset("/") }}asset/front/images/of.png">Add to Cart</button>
-                        </div>
+                        <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="id" value="{{ $offerProduct->id }}" style="width: 65px">
+                                <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                            </div>
+                            <div class="add">
+                                <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
