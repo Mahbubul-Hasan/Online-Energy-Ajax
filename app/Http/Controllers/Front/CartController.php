@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
@@ -38,17 +39,29 @@ class CartController extends Controller
     {
         $product = Product::select(["id", "name", "price", "Offer_price", "photo"])->where("id", $request->id)->first();
         // return $product;
-        \Cart::add(array(
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->Offer_price > 0 ? $product->Offer_price : $product->price,
-            'quantity' => $request->quantity,
-            'attributes' => array(
-                'photo' => $product->photo,
-            )
-        ));
+        // \Cart::add(array(
+        //     'id' => $product->id,
+        //     'name' => $product->name,
+        //     'price' => $product->Offer_price > 0 ? $product->Offer_price : $product->price,
+        //     'quantity' => $request->quantity,
+        //     'attributes' => array(
+        //         'photo' => $product->photo,
+        //     )
+        // ));
+        Cart::add(
+            [
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->quantity,
+                'price' => $product->Offer_price > 0 ? $product->Offer_price : $product->price,
+                'weight' => 0,
+                'options' => [
+                    'photo' => $product->photo,
+                ]
+            ]
+        );
 
-        return response()->json(\Cart::getContent()->count());
+        return response()->json(Cart::count());
     }
 
     /**
@@ -85,6 +98,14 @@ class CartController extends Controller
         //
     }
 
+    public function cartUpdate(Request $request, $rowId)
+    {
+        $quantity = $request->quantity;
+        Cart::update($rowId, $quantity);
+
+        return response()->json("success");
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -93,13 +114,13 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        \Cart::remove($id);
-        return response()->json(\Cart::getContent()->count());
+        Cart::remove($id);
+        return response()->json(Cart::count());
     }
-    
+
     public function cartsRemoveAll()
     {
-        \Cart::clear();
-        return response()->json(\Cart::getContent()->count());
+        Cart::destroy();
+        return response()->json(Cart::count());
     }
 }

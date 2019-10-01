@@ -82,7 +82,7 @@
             </nav>
             <div class="cart">
 
-                <span id="cart-product" class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge">{{ \Cart::getContent()->count() }}</span></span></span>
+                <span id="cart-product" class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge">{{ Cart::count() }}</span></span></span>
             </div>
             @include('front.cart-products.cart-products')
             <div class="clearfix"></div>

@@ -24,4 +24,5 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::resource('/carts', 'CartController');
     Route::post('/carts/removeAll', 'CartController@cartsRemoveAll');
+    Route::post('/carts/update/{id}', 'CartController@cartUpdate');
 });

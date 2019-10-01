@@ -142,4 +142,26 @@ $(function () {
             }
         })
     });
+
+    // Update--------------------------------------------------------
+    $(document).on("change", "#quantity", function (event) {
+        event.preventDefault();
+        let url = $(this).data("url");
+        let token = $(this).data("token");
+        let quantity = parseInt($(this).val());
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { 
+                quantity: quantity,
+                _token: token
+             },
+            dataType: "JSON",
+            success: (data)=> {
+                if (data = "success") {                    
+                    getCastProduct();
+                }
+            }
+        });
+    })
 });

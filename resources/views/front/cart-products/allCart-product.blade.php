@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    @if (\Cart::isEmpty())
+    @if (Cart::count() <= 0)
     <div class="alert alert-warning" role="alert">
         <b>Sorry!</b> Your cart is empty.
     </div>
@@ -17,28 +17,29 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (\Cart::getContent() as $product)                
-            {{-- @foreach ($carts as $product)                 --}}
+            @php( $sum = 0 )
+            @foreach (Cart::content() as $product)               
             <tr>
                 <td>
-                    <img src="{{ $product->attributes->photo }}" width="80"/>
+                    <img src="{{ $product->options->photo }}" width="80"/>
                 </td>
                 <td>{{ $product->name }}</td>
                 <td>{{ number_format($price = $product->price, 2) }}</td>
                 <td>
-                    <input id="quantity" type="number" value="{{ $quantity = $product->quantity }}">
+                    <input id="quantity" type="number" name="quantity" value="{{ $quantity = $product->qty }}" data-url="{{ url("/carts/update", ["id" => $product->rowId ]) }}" data-token="{{ csrf_token() }}">
                 </td>
-                <td>{{ number_format($price * $quantity, 2) }}</td>
+                <td>{{ number_format($totalPrice = $price * $quantity, 2) }}</td>
                 <td>
-                    <a id="cartRemove" href="{{ url("/carts", ["id" => $product->id]) }}" data-token="{{ csrf_token() }}"><i class="fa fa-times" style="color: brown"></i></a>
+                    <a id="cartRemove" href="{{ url("/carts", ["id" => $product->rowId ]) }}" data-token="{{ csrf_token() }}"><i class="fa fa-times" style="color: brown"></i></a>
                 </td>
-            </tr>            
+            </tr>
+            @php( $sum = $sum + $totalPrice )
             @endforeach
             <hr/>
             <tr style="border: 1px solid darkgray;">
                 <th colspan="3"></th>
                 <th>Total</th>
-                <td>{{ number_format($totalPrice = \Cart::getTotal(), 2) }}</td>
+                <td>{{ number_format( $sum, 2) }}</td>
                 <th>
                     <a id="cartRemoveAll" href="{{ url("/carts/removeAll") }}" data-token="{{ csrf_token() }}"><span class="btn btn-danger btn-xs">Remove All</span></a>
                 </th>
