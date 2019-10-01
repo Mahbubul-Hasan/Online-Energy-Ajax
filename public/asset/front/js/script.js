@@ -38,15 +38,14 @@ $(function () {
             data: data,
             dataType: "JSON",
             success: (data) => {
-                if (data == "success") {
-                    Swal.fire({
-                        position: 'top-end',
-                        type: 'success',
-                        title: 'This is added to card',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'This is added to card',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                $(".my-cart-badge").text(data);
             },
         });
     });
@@ -95,9 +94,8 @@ $(function () {
                     },
                     dataType: "JSON",
                     success: function (data) {
-                        if (data === "delete") {
-                            getCastProduct();
-                        }
+                        getCastProduct();
+                        $(".my-cart-badge").text(data);
                     },
                 });
                 Swal.fire(
@@ -132,9 +130,8 @@ $(function () {
                     },
                     dataType: "JSON",
                     success: function (data) {
-                        if (data === "delete") {
-                            getCastProduct();
-                        }
+                        getCastProduct();
+                        $(".my-cart-badge").text(data);
                     },
                 });
                 Swal.fire(

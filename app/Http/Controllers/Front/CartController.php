@@ -48,7 +48,7 @@ class CartController extends Controller
             )
         ));
 
-        return response()->json("success");
+        return response()->json(\Cart::getContent()->count());
     }
 
     /**
@@ -94,12 +94,12 @@ class CartController extends Controller
     public function destroy($id)
     {
         \Cart::remove($id);
-        return response()->json("delete");
+        return response()->json(\Cart::getContent()->count());
     }
     
     public function cartsRemoveAll()
     {
         \Cart::clear();
-        return response()->json("delete");
+        return response()->json(\Cart::getContent()->count());
     }
 }
