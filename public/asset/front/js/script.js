@@ -1,7 +1,6 @@
-$(function () {
-
+$(function() {
     // view product modal-------------------------------------------
-    $(document).on("click", "#productModal", function (event) {
+    $(document).on("click", "#productModal", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
 
@@ -23,11 +22,11 @@ $(function () {
                 $("#viewImage").attr("src", data.photo);
                 $("#viewOverview").text(data.short_description);
             }
-        })
+        });
     });
 
     // Add to cart-------------------------------------------
-    $(document).on("submit", "#addToCartForm", function (event) {
+    $(document).on("submit", "#addToCartForm", function(event) {
         event.preventDefault();
         let url = $(this).attr("action");
         let method = $(this).attr("method");
@@ -39,14 +38,14 @@ $(function () {
             dataType: "JSON",
             success: (data) => {
                 Swal.fire({
-                    position: 'top-end',
-                    type: 'success',
-                    title: 'This is added to card',
+                    position: "top-end",
+                    type: "success",
+                    title: "This is added to card",
                     showConfirmButton: false,
                     timer: 1500
-                })
+                });
                 $(".my-cart-badge").text(data);
-            },
+            }
         });
     });
 
@@ -59,92 +58,91 @@ $(function () {
             dataType: "HTML",
             success: (data) => {
                 $("#cartProducts").html(data);
-            },
-        })
+            }
+        });
     };
 
-
     // Cart Product--------------------------------------------------------
-    $(document).on("click", "#cart-product", function () {
+    $(document).on("click", "#cart-product", function() {
         $("#ViewCartModal").modal("show");
         getCastProduct();
     });
-    
+
     // remove Cart Product--------------------------------------------------------
-    $(document).on("click", "#cartRemove", function (event) {
+    $(document).on("click", "#cartRemove", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
         let token = $(this).data("token");
         Swal.fire({
-            title: 'Are you sure?',
+            title: "Are you sure?",
             text: "You won't be able to revert this!",
-            type: 'warning',
+            type: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(result => {
             if (result.value) {
                 $.ajax({
                     url: url,
-                    type: 'POST',
+                    type: "POST",
                     data: {
-                        _method: 'DELETE',
+                        _method: "DELETE",
                         _token: token
                     },
                     dataType: "JSON",
-                    success: function (data) {
+                    success: function(data) {
                         getCastProduct();
                         $(".my-cart-badge").text(data);
-                    },
+                    }
                 });
                 Swal.fire(
-                    'Deleted!',
-                    'Your product has been removed.',
-                    'success',
-                )
+                    "Deleted!",
+                    "Your product has been removed.",
+                    "success"
+                );
             }
-        })        
+        });
     });
-    
-    $(document).on("click", "#cartRemoveAll", function (event) {
+
+    $(document).on("click", "#cartRemoveAll", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
         let token = $(this).data("token");
         Swal.fire({
-            title: 'Are you sure?',
+            title: "Are you sure?",
             text: "You won't be able to revert this!",
-            type: 'warning',
+            type: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(result => {
             if (result.value) {
                 $.ajax({
                     url: url,
-                    type: 'POST',
+                    type: "POST",
                     data: {
                         // _method: 'DELETE',
                         _token: token
                     },
                     dataType: "JSON",
-                    success: function (data) {
+                    success: function(data) {
                         getCastProduct();
                         $(".my-cart-badge").text(data);
-                    },
+                    }
                 });
                 Swal.fire(
-                    'Deleted!',
-                    'Your product has been removed.',
-                    'success',
-                )
+                    "Deleted!",
+                    "Your product has been removed.",
+                    "success"
+                );
             }
-        })
+        });
     });
 
     // Update--------------------------------------------------------
-    $(document).on("change", "#quantity", function (event) {
+    $(document).on("change", "#quantity", function(event) {
         event.preventDefault();
         let url = $(this).data("url");
         let token = $(this).data("token");
@@ -152,16 +150,16 @@ $(function () {
         $.ajax({
             url: url,
             type: "POST",
-            data: { 
+            data: {
                 quantity: quantity,
                 _token: token
-             },
+            },
             dataType: "JSON",
-            success: (data)=> {
-                if (data = "success") {                    
+            success: (data) => {
+                if ((data = "success")) {
                     getCastProduct();
                 }
             }
         });
-    })
+    });
 });

@@ -11,9 +11,9 @@
                 <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
                 <li><a href="register.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>Register</a></li>
                 @endguest
+                <li><a href="{{ route("checkoutView") }}"><i class="fa fa-credit-card" aria-hidden="true"></i>Checkout</a></li>
                 @auth
                 <li><a href="about.html"><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
-                <li><a href="shipping.html"><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li>
                 <li><a href="about.html"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                 @endauth
             </ul>
