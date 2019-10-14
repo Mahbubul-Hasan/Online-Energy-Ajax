@@ -14,7 +14,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button id="checkout" type="button" href="{{ url("/checkoutView") }}" class="btn btn-success">Check Out</button>
       </div>
     </div>
   </div>

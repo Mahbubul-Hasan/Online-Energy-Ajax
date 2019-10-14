@@ -38,16 +38,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $product = Product::select(["id", "name", "price", "Offer_price", "photo"])->where("id", $request->id)->first();
-        // return $product;
-        // \Cart::add(array(
-        //     'id' => $product->id,
-        //     'name' => $product->name,
-        //     'price' => $product->Offer_price > 0 ? $product->Offer_price : $product->price,
-        //     'quantity' => $request->quantity,
-        //     'attributes' => array(
-        //         'photo' => $product->photo,
-        //     )
-        // ));
+        
         Cart::add(
             [
                 'id' => $product->id,
@@ -103,7 +94,7 @@ class CartController extends Controller
         $quantity = $request->quantity;
         Cart::update($rowId, $quantity);
 
-        return response()->json("success");
+        return response()->json(Cart::count());
     }
 
     /**
@@ -122,5 +113,12 @@ class CartController extends Controller
     {
         Cart::destroy();
         return response()->json(Cart::count());
+    }
+
+    public function cartPriceCount()
+    {
+        $data["cart_count"] = Cart::count();
+        $data["cart_price"] = Cart::subtotal();
+        return response()->json($data);
     }
 }

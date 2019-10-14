@@ -7,45 +7,107 @@ Checkout
 @section('content')
 
 <style>
-.mb-3{
-  margin-bottom: 30px
+.checkout-content{
+    padding: 30px
+}    
+.mb-3 {
+    margin-bottom: 30px
 }
-.mb-4{
-  margin-bottom: 40px;
+
+.mb-4 {
+    margin-bottom: 40px;
 }
-.bill-title{
-  margin-left: -18px;
-  margin-bottom: 25px
+
+.bill-title {
+    margin-left: -18px;
+    margin-bottom: 25px
 }
+
 @media only screen and (max-width: 768px) {
-  .col-md-8 {
-    margin-left: 15px
-  }
+    .col-md-8 {
+        margin-left: 15px
+    }.col-md-4 {
+        margin-top: 40px
+    }
 }
 </style>
-
-<div class="container" style="padding-top: 30px; padding-bottom: 30px">
+<div id="checkout-active" hidden>0</div>
+<div class="container checkout-content">
     <div class="row">
+        
+        <div class="col-md-8 order-md-1">
+            <h2 class="bill-title">Billing address</h2>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="email">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Davvy Jone">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Phone</label>
+                        <input type="text" class="form-control" id="phone" placeholder="015*********">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="radio-inline"><input type="radio" name="location" value="50" checked>Inside Dahka (50tk)</label>
+                        <label class="radio-inline"><input type="radio" name="location" value="100">Outside Dahka (100 tk)</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label for="my-textarea">Address</label>
+                            <textarea id="my-textarea" class="form-control" name="" rows="3" placeholder="1234 Main St" required style="resize: vertical"></textarea>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                </div>
+            </form>
+        </div>
+
         <div class="col-md-4 order-md-2 mb-4">
             <h2 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted" >Your cart</span>
-                <span class="badge badge-secondary badge-pill">{{ $cart_count }}</span>
+                <span class="text-muted">Price List</span>
             </h2>
             <ul class="list-group mb-3">
-              @foreach ($cart_products as $product)
-                  
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                  <div>
-                      <h6 class="my-0">{{ $product->name }}</h6>
-                      <small class="text-muted">৳ {{ $product->price }} * {{ $product->qty }}</small>
-                  </div>
-                  <span class="text-muted">৳{{ $product->price * $product->qty }}</span>
-              </li>
-
-              @endforeach
+                @php( $subtotal = 0 )
+                @foreach ($cart_products as $product)
+                @php($price = $product->price * $product->qty)
+                    
+                @php( $subtotal = $subtotal + $price )
+                @endforeach
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
+                    <strong>Subtotal: </strong>
+                    <span> ৳ </span>
+                    <span id="subtotal"> {{ number_format($subtotal, 2) }} </span>
+                    {{-- <span id="subtotalW2" hidden></span> --}}
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Derivery Charge: </strong>
+                    <span id="cart-count" hidden>{{ $cart_count }}</span>
+                    <span> ৳ </span><span id="dCharge"> {{ number_format($dCharge = 50 * $cart_count, 2)}} </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total Price: </span>
+                    <span> ৳ </span><strong id="tPrice">{{ number_format($subtotal + $dCharge, 2) }}</strong>
                 </li>
             </ul>
 
@@ -58,46 +120,18 @@ Checkout
                 </div>
             </form> --}}
         </div>
-        <div class="col-md-8 order-md-1">
-            <h2 class="bill-title">Billing address</h2>
-            <form class="needs-validation" novalidate>
-                <div class="row">
-                  <div class="mb-3">
-                    <label for="email">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Davvy Jone">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
 
-                <div class="mb-3">
-                    <label for="email">Phone</label>
-                    <input type="text" class="form-control" id="phone" placeholder="015*********">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-            </form>
-        </div>
     </div>
 </div>
-</div>
+
+@endsection
+
+@section('extra-js')
+    
+<script>
+    $(window).load(function() {
+        $("#checkout-active").text(1);
+    });
+</script>
+
 @endsection

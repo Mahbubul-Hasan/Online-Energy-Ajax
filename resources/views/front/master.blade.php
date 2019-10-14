@@ -124,6 +124,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <script type='text/javascript' src="{{ asset("/") }}asset/front/js/script.js"></script>
 
+    @yield('extra-js')
+
 </body>
 
 </html>

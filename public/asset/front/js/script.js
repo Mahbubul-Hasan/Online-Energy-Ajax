@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
     // view product modal-------------------------------------------
-    $(document).on("click", "#productModal", function(event) {
+    $(document).on("click", "#productModal", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
 
@@ -8,7 +8,7 @@ $(function() {
             url: url,
             type: "GET",
             dataType: "JSON",
-            success: (data) => {
+            success: data => {
                 $("#ViewProductModal").modal("show");
                 $("#viewId").val(data.id);
                 $("#viewQuantity").val(1);
@@ -26,7 +26,7 @@ $(function() {
     });
 
     // Add to cart-------------------------------------------
-    $(document).on("submit", "#addToCartForm", function(event) {
+    $(document).on("submit", "#addToCartForm", function (event) {
         event.preventDefault();
         let url = $(this).attr("action");
         let method = $(this).attr("method");
@@ -36,7 +36,7 @@ $(function() {
             type: method,
             data: data,
             dataType: "JSON",
-            success: (data) => {
+            success: data => {
                 Swal.fire({
                     position: "top-end",
                     type: "success",
@@ -63,13 +63,13 @@ $(function() {
     };
 
     // Cart Product--------------------------------------------------------
-    $(document).on("click", "#cart-product", function() {
+    $(document).on("click", "#cart-product", function () {
         $("#ViewCartModal").modal("show");
         getCastProduct();
     });
 
     // remove Cart Product--------------------------------------------------------
-    $(document).on("click", "#cartRemove", function(event) {
+    $(document).on("click", "#cartRemove", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
         let token = $(this).data("token");
@@ -91,9 +91,13 @@ $(function() {
                         _token: token
                     },
                     dataType: "JSON",
-                    success: function(data) {
+                    success: function (data) {
                         getCastProduct();
                         $(".my-cart-badge").text(data);
+
+                        if ($("#checkout-active").text() == "1") {
+                            cartPriceCount()
+                        }
                     }
                 });
                 Swal.fire(
@@ -105,7 +109,7 @@ $(function() {
         });
     });
 
-    $(document).on("click", "#cartRemoveAll", function(event) {
+    $(document).on("click", "#cartRemoveAll", function (event) {
         event.preventDefault();
         let url = $(this).attr("href");
         let token = $(this).data("token");
@@ -127,9 +131,13 @@ $(function() {
                         _token: token
                     },
                     dataType: "JSON",
-                    success: function(data) {
+                    success: function (data) {
                         getCastProduct();
                         $(".my-cart-badge").text(data);
+
+                        if ($("#checkout-active").text() == "1") {
+                            cartPriceCount()
+                        }
                     }
                 });
                 Swal.fire(
@@ -142,7 +150,7 @@ $(function() {
     });
 
     // Update--------------------------------------------------------
-    $(document).on("change", "#quantity", function(event) {
+    $(document).on("change", "#quantity", function (event) {
         event.preventDefault();
         let url = $(this).data("url");
         let token = $(this).data("token");
@@ -156,10 +164,44 @@ $(function() {
             },
             dataType: "JSON",
             success: (data) => {
-                if ((data = "success")) {
-                    getCastProduct();
+                getCastProduct();
+                $(".my-cart-badge").text(data);
+
+                if ($("#checkout-active").text() == "1") {
+                    cartPriceCount()
                 }
             }
         });
     });
+
+    // Total Price-------------------------------------------------------
+    $(document).on("change", "input[type = 'radio'][name = 'location']", function () {
+        let location = parseInt($("input[type = 'radio'][name = 'location']:checked").val());
+        cartPriceCount();
+    });
+
+    const currencyFormat = (price) => {
+        return price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    };
+
+    const cartPriceCount = () => {
+        let url = window.location.origin + "/cartPriceCount"
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: (data) => {
+                $("#subtotal").text(data.cart_price);
+                let subtotal = Number(data.cart_price.replace(/[^0-9\.-]+/g, ""));
+
+                let location = parseInt($("input[type = 'radio'][name = 'location']:checked").val());
+                let dCharge = location * data.cart_count;
+                let tPrice = subtotal + dCharge;
+
+                $("#dCharge").text(currencyFormat(dCharge));
+                $("#tPrice").text(currencyFormat(tPrice));
+            }
+        })
+    }
 });
