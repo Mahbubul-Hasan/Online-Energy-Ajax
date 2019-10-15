@@ -37,19 +37,19 @@ Checkout
         
         <div class="col-md-8 order-md-1">
             <h2 class="bill-title">Billing address</h2>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" action="{{ route('checkout') }}" method="POST" novalidate>
                 <div class="row">
                     <div class="mb-3">
-                        <label for="email">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Davvy Jone">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" placeholder="Davvy Jone" name="name">
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email">Phone</label>
-                        <input type="text" class="form-control" id="phone" placeholder="015*********">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" placeholder="015*********" name="phone">
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
@@ -57,7 +57,7 @@ Checkout
 
                     <div class="mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <input type="email" class="form-control" placeholder="you@example.com" name="email">
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
@@ -70,8 +70,8 @@ Checkout
 
                     <div class="mb-3">
                         <div class="form-group">
-                            <label for="my-textarea">Address</label>
-                            <textarea id="my-textarea" class="form-control" name="" rows="3" placeholder="1234 Main St" required style="resize: vertical"></textarea>
+                            <label for="address">Address</label>
+                            <textarea class="form-control" name="address" rows="3" placeholder="1234 Main St" required style="resize: vertical"></textarea>
                         </div>
                         <div class="invalid-feedback">
                             Please enter your shipping address.

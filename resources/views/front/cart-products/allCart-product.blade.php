@@ -59,13 +59,3 @@
 
 /* border: 1px solid darkgray; */
 </style>
-
-<script>
-    // if ($("#checkout-active").text() == "1") {
-    //     let subtotal = parseFloat($("#subtotalR").text())
-    //     $("#subtotalW").text(currencyFormat(subtotal));
-    //     function currencyFormat(price) {
-    //         return price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    //     };
-    // }
-</script>

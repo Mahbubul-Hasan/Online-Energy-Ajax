@@ -27,5 +27,10 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/carts/update/{id}', 'CartController@cartUpdate');
     Route::get('/cartPriceCount', 'CartController@cartPriceCount');
 
-    Route::get('/checkoutView', 'CheckoutController@checkoutView')->name("checkoutView");
+    Route::get('/checkout', 'CheckoutController@checkoutView')->name("checkout");
+    Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout");
 });
+
+Route::get('/login', 'Login\LoginController@login')->name("login");
+Route::get('/registration', 'Login\LoginController@registration')->name("registration");
+Route::post('/registration', 'Login\LoginController@registrationForm')->name("registration");
