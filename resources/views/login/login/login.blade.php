@@ -38,6 +38,9 @@
 				<span class="fa fa-eercast"></span>
 			</div>
 			<div class="header-left-bottom">
+				
+				@include('message.message')
+
 				<form action="#" method="post">
 					<div class="icon1">
 						<span class="fa fa-user"></span>

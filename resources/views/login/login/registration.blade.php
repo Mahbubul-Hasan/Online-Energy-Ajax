@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Registation</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,27 +32,30 @@
 <!-- main -->
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
-		<h1>Registation form</h1>
+	<h1>Registation form</h1>
 		<div class="header-main">
 			<div class="main-icon">
 				<span class="fa fa-eercast"></span>
 			</div>
 			<div class="header-left-bottom">
+
+				@include('message.message')
+				
 				<form action="{{ route('registration') }}" method="POST">
                     @csrf
 					<div class="icon1">
 						<span class="fa fa-user"></span>
-						<input type="text" name="name" placeholder="Name" required/>
+						<input type="text" name="name" value="{{ old("name") }}" placeholder="Name" required/>
 						{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="icon1">
 						<span class="fa fa-envelope-o"></span>
-						<input type="email" name="email" placeholder="Email" required/>
+						<input type="email" name="email" value="{{ old("email") }}" placeholder="Email" required/>
 						{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="icon1">
 						<span class="fa fa-phone"></span>
-						<input type="text" name="phone" placeholder="Phone" required/>
+						<input type="text" name="phone" value="{{ old("phone") }}" placeholder="Phone" required/>
 						{!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
 					</div>
 					<div class="icon1">

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Login;
 
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\RegistrationEmail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -28,6 +32,34 @@ class LoginController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+        else {
+            $user = new User();
+            $user->saveUserInfo($user, $request);
+            
+            Mail::to($user->email)->queue(new RegistrationEmail($user));
+
+            $this->setSuccessMessage("Please check your email to active your account");
+            return redirect()->back();
+        }
+    }
+
+    public function userVerify($token)
+    {
+        $user = User::where("email_verification_token", $token)->first();
+
+        if($user)
+        {
+            $user->update([
+                "email_verified_at" => Carbon::now(),
+                "email_verification_token" => "",
+            ]);
+            $this->setSuccessMessage("Your account activated. Please login");
+            return redirect("/login");
+        }
+        else {
+            $this->setErrorMessage("Invalid token");
+            return redirect("/login");
         }
     }
 }

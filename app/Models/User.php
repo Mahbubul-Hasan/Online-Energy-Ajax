@@ -1,10 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -34,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function saveUserInfo($user, $request)
+    {
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->email_verification_token = Str::random(32);
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+    }
 }

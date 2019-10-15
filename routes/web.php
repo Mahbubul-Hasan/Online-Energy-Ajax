@@ -32,5 +32,7 @@ Route::group(['namespace' => 'Front'], function () {
 });
 
 Route::get('/login', 'Login\LoginController@login')->name("login");
+
 Route::get('/registration', 'Login\LoginController@registration')->name("registration");
 Route::post('/registration', 'Login\LoginController@registrationForm')->name("registration");
+Route::get('/user/verify/{token}', 'Login\LoginController@userVerify')->name("user.verify");

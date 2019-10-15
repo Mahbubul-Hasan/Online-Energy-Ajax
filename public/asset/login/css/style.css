@@ -356,6 +356,21 @@ h3 a {
 .help-block{
     color: red;
 }
+form .right {
+    float: right;
+}
+.alert-success{
+    width: 96%;
+    background-color: seagreen;
+    padding: 10px;
+    padding-right: 0px;
+}
+.alert-warning{
+    width: 96%;
+    background-color: tan;
+    padding: 10px;
+    padding-right: 0px;
+}
 
 @media(max-width:667px){
 	
