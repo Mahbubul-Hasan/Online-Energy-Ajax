@@ -14,7 +14,7 @@
                 <li><a href="{{ route("checkout") }}"><i class="fa fa-credit-card" aria-hidden="true"></i>Checkout</a></li>
                 @auth
                 <li><a href="about.html"><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
-                <li><a href="about.html"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+                <li><a href="{{ route("logout") }}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                 @endauth
             </ul>
         </div>

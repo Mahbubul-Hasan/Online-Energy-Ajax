@@ -356,7 +356,7 @@ h3 a {
 .help-block{
     color: red;
 }
-form .right {
+.header-left-bottom .right {
     float: right;
 }
 .alert-success{

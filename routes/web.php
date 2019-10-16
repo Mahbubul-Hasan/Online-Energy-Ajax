@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["auth"]], function () {
     Route::get('/', "DashboardController@index")->name('dashboard');
 
     Route::resource('/categories', 'CategoryController');
@@ -27,12 +27,19 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/carts/update/{id}', 'CartController@cartUpdate');
     Route::get('/cartPriceCount', 'CartController@cartPriceCount');
 
-    Route::get('/checkout', 'CheckoutController@checkoutView')->name("checkout");
-    Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout");
+    Route::get('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
+    Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
 });
 
-Route::get('/login', 'Login\LoginController@login')->name("login");
 
 Route::get('/registration', 'Login\LoginController@registration')->name("registration");
 Route::post('/registration', 'Login\LoginController@registrationForm')->name("registration");
 Route::get('/user/verify/{token}', 'Login\LoginController@userVerify')->name("user.verify");
+
+Route::get('/login', 'Login\LoginController@login')->name("login");
+Route::post('/login', 'Login\LoginController@loginForm')->name("login");
+
+Route::get('/logout', 'Login\LoginController@logout')->name("logout");
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
