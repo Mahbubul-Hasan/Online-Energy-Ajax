@@ -40,7 +40,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <form class="login-container" action="{{ route('admin.login') }}" method="POST">
                     @csrf
                     <input type="email" placeholder="Email" Name="email" value="{{ old("email") }}" required="">
+                    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                     <input type="password" placeholder="Password" Name="password" required="">
+                    {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                     <input type="submit" value="Submit">
                 </form>
 

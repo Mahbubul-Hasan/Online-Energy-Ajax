@@ -84,7 +84,7 @@ class LoginController extends Controller
             if (Auth::attempt($credentials)) {
 
                 if (Auth::user()->email_verification_token == null && Auth::user()->email_verified_at != null) {
-                    return redirect()->intended();
+                    return redirect()->intended(route('/'));
                 }
 
                 else {
@@ -108,7 +108,7 @@ class LoginController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:6',
         ]);
 
 
@@ -119,16 +119,8 @@ class LoginController extends Controller
         else {
             $credentials = $request->only(['email', 'password']);
             
-            if (Auth::attempt($credentials)) {
-
-                if (Auth::user()->email_verification_token == null && Auth::user()->email_verified_at != null) {
-                    return redirect()->intended();
-                }
-
-                else {
-                    $this->setErrorMessage("Your account is not active. Please check your email to active");
-                    return redirect()->back();
-                }
+            if (Auth::guard('admin')->attempt($credentials)) {
+                return redirect()->intended(route('admin.dashboard'));
             }
             else {
                 $this->setErrorMessage("Email or Password is worng. Please try again");
