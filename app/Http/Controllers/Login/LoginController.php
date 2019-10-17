@@ -99,6 +99,15 @@ class LoginController extends Controller
         }
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect("/");
+    }
+
+    
+    // Admin-----------------------------------------------------
+
     public function showAdminLoginForm()
     {
         return view("admin.login.login");
@@ -129,9 +138,9 @@ class LoginController extends Controller
         }
     }
 
-    public function logout()
+    public function admniLogout()
     {
-        Auth::logout();
-        return redirect("/");
+        Auth::guard('admin')->logout();
+        return redirect("/admin/login");
     }
 }

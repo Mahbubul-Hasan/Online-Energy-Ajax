@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["admin"]], function () {
-    Route::get('/', "DashboardController@index")->name('dashboard');
+    Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
     Route::resource('/categories', 'CategoryController');
     Route::get('/getAllcategory', 'CategoryController@getAllcategory');
@@ -38,11 +38,16 @@ Route::group(['namespace' => "Login"], function () {
     
     Route::get('/login', 'LoginController@showLoginForm')->name("login");
     Route::post('/login', 'LoginController@login')->name("login");
-    
-    Route::get('/admin/login', 'LoginController@showAdminLoginForm')->name("admin.login");
-    Route::post('/admin/login', 'LoginController@adminLogin')->name("admin.login");
-    
+
     Route::get('/logout', 'LoginController@logout')->name("logout");
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::get('/login', 'LoginController@showAdminLoginForm')->name("login");
+        Route::post('/login', 'LoginController@adminLogin')->name("login");
+        
+        Route::get('/logout', 'LoginController@admniLogout')->name("logout");
+    });
+    
 });
 
 // Auth::routes();
