@@ -34,11 +34,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="login w3_login">
             <h2 class="login-header w3_header">Log in</h2>
             <div class="w3l_grid">
-                <form class="login-container" action="#" method="post">
-                    <input type="email" placeholder="Email" Name="Email" required="">
+
+                @include('message.message')
+
+                <form class="login-container" action="{{ route('admin.login') }}" method="POST">
+                    @csrf
+                    <input type="email" placeholder="Email" Name="email" value="{{ old("email") }}" required="">
                     <input type="password" placeholder="Password" Name="password" required="">
                     <input type="submit" value="Submit">
                 </form>
+
             </div>
         </div>
 

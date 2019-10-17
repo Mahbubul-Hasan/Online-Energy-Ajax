@@ -153,9 +153,8 @@ body a:hover,body a{
   border-color: #33b5e5;
 }
 .login input[type="email"]:hover 
-.login input[type="password"]:hover
+.login input[type="password"]:hover{
  border-color:#28d;
-  
 }
 .login input[type="submit"] {
   background:#33b5e5 ;
@@ -341,6 +340,11 @@ input[type=submit]:hover {
     -ms-transition: .5s ease-in;
     -o-transition: .5s ease-in;
     -moz-transition:.5s ease-in;
+}
+
+.alert-warning{
+    background-color: rosybrown;
+    padding: 10px;
 }
 /* responsive design */
 @media only screen and (max-width:1080px) {
