@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["auth"]], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["admin"]], function () {
     Route::get('/', "DashboardController@index")->name('dashboard');
 
     Route::resource('/categories', 'CategoryController');
@@ -31,18 +31,20 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
 });
 
+Route::group(['namespace' => "Login"], function () { 
+    Route::get('/registration', 'LoginController@showRegistrationForm')->name("registration");
+    Route::post('/registration', 'LoginController@registration')->name("registration");
+    Route::get('/user/verify/{token}', 'LoginController@userEmailVerification')->name("user.verify");
+    
+    Route::get('/login', 'LoginController@showLoginForm')->name("login");
+    Route::post('/login', 'LoginController@login')->name("login");
+    
+    Route::get('/admin/login', 'LoginController@showAdminLoginForm')->name("admin.login");
+    Route::post('/admin/login', 'LoginController@adminLogin')->name("admin.login");
+    
+    Route::get('/logout', 'LoginController@logout')->name("logout");
+});
 
-Route::get('/registration', 'Login\LoginController@showRegistrationForm')->name("registration");
-Route::post('/registration', 'Login\LoginController@registration')->name("registration");
-Route::get('/user/verify/{token}', 'Login\LoginController@userEmailVerification')->name("user.verify");
-
-Route::get('/login', 'Login\LoginController@showLoginForm')->name("login");
-Route::post('/login', 'Login\LoginController@login')->name("login");
-
-Route::get('/admin/login', 'Login\LoginController@showAdminLoginForm')->name("admin.login");
-Route::post('/admin/login', 'Login\LoginController@adminLogin')->name("admin.login");
-
-Route::get('/logout', 'Login\LoginController@logout')->name("logout");
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

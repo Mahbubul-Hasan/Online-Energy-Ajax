@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -19,7 +20,7 @@ class AdminMiddleware
             return $next($request);
         }
         else {
-            return redirect()->route("/admin/login");
+            return redirect("/admin/login");
         }
     }
 }
