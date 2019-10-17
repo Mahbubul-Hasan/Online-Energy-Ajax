@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function registration()
+    public function showRegistrationForm()
     {
-        return view("login.login.registration");
+        return view("front.login.registration");
     }
 
-    public function registrationForm(Request $request)
+    public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
@@ -42,7 +42,7 @@ class LoginController extends Controller
         }
     }
 
-    public function userVerify($token)
+    public function userEmailVerification($token)
     {
         $user = User::where("email_verification_token", $token)->first();
 
@@ -61,12 +61,12 @@ class LoginController extends Controller
         }
     }
 
-    public function login()
+    public function showLoginForm()
     {
-        return view("login.login.login");
+        return view("front.login.login");
     }
 
-    public function loginForm(Request $request)
+    public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -88,7 +88,7 @@ class LoginController extends Controller
                 }
 
                 else {
-                    $this->setErrorMessage("Your account is not active. Please checkour email to active");
+                    $this->setErrorMessage("Your account is not active. Please check your email to active");
                     return redirect()->back();
                 }
             }

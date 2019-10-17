@@ -32,12 +32,12 @@ Route::group(['namespace' => 'Front'], function () {
 });
 
 
-Route::get('/registration', 'Login\LoginController@registration')->name("registration");
-Route::post('/registration', 'Login\LoginController@registrationForm')->name("registration");
-Route::get('/user/verify/{token}', 'Login\LoginController@userVerify')->name("user.verify");
+Route::get('/registration', 'Login\LoginController@showRegistrationForm')->name("registration");
+Route::post('/registration', 'Login\LoginController@registration')->name("registration");
+Route::get('/user/verify/{token}', 'Login\LoginController@userEmailVerification')->name("user.verify");
 
-Route::get('/login', 'Login\LoginController@login')->name("login");
-Route::post('/login', 'Login\LoginController@loginForm')->name("login");
+Route::get('/login', 'Login\LoginController@showLoginForm')->name("login");
+Route::post('/login', 'Login\LoginController@login')->name("login");
 
 Route::get('/logout', 'Login\LoginController@logout')->name("logout");
 // Auth::routes();

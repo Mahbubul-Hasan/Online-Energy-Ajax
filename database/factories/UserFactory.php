@@ -25,7 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => Carbon::now(),
 
-        'phone' => $faker->phoneNumber,
+        'phone' => $faker->e164PhoneNumber,
         'password' => Hash::make(123456), // password
         'remember_token' => Str::random(10),
     ];
