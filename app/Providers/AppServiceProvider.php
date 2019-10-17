@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
             $size = Category::count() / 2;
             $data["categories_1"] = Category::where("active", "1")->take($size)->orderBy("id", "desc")->get();
             $data["categories_2"] = Category::where("active", "1")->skip($size)->take($size)->orderBy("id", "desc")->get();
+            $data["categories_2"] = Category::where("active", "1")->skip($size)->take($size)->orderBy("id", "desc")->get();
             view()->share($data);
         }
     }

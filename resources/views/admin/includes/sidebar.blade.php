@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{  route("admin.dashboard") }}" class="brand-link">
       <img src="{{ asset("/") }}asset/admin/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .9">
       <span class="brand-text font-weight-light">{{ config("app.name") }}</span>
@@ -14,7 +14,7 @@
           <img src="{{ asset("/") }}asset/admin/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ Auth::guard('admin')->user()->name }}</a>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="{{  route("admin.categories.index") }}" class="nav-link">
               <i class="nav-icon fas fa-chart-line"></i>
@@ -39,7 +39,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="{{  route("admin.products.index") }}" class="nav-link">
               <i class="nav-icon fas fa-ankh"></i>
@@ -48,7 +48,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="{{  route("admin.logout") }}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
