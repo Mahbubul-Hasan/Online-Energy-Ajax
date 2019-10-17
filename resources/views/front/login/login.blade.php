@@ -20,8 +20,8 @@
     </script>
 
     <!-- Custom Theme files -->
-    <link href="{{ asset('/') }}asset/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{ asset('/') }}asset/login/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('/') }}asset/login/user/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('/') }}asset/login/user/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //Custom Theme files -->
 
     <!-- web font -->

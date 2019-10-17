@@ -99,6 +99,44 @@ class LoginController extends Controller
         }
     }
 
+    public function showAdminLoginForm()
+    {
+        return view("admin.login.login");
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        else {
+            $credentials = $request->only(['email', 'password']);
+            
+            if (Auth::attempt($credentials)) {
+
+                if (Auth::user()->email_verification_token == null && Auth::user()->email_verified_at != null) {
+                    return redirect()->intended();
+                }
+
+                else {
+                    $this->setErrorMessage("Your account is not active. Please check your email to active");
+                    return redirect()->back();
+                }
+            }
+            else {
+                $this->setErrorMessage("Email or Password is worng. Please try again");
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+        }
+    }
+
     public function logout()
     {
         Auth::logout();

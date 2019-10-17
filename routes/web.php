@@ -39,6 +39,9 @@ Route::get('/user/verify/{token}', 'Login\LoginController@userEmailVerification'
 Route::get('/login', 'Login\LoginController@showLoginForm')->name("login");
 Route::post('/login', 'Login\LoginController@login')->name("login");
 
+Route::get('/admin/login', 'Login\LoginController@showAdminLoginForm')->name("admin.login");
+Route::post('/admin/login', 'Login\LoginController@adminLogin')->name("admin.login");
+
 Route::get('/logout', 'Login\LoginController@logout')->name("logout");
 // Auth::routes();
 
