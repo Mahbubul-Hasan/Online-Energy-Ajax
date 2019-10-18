@@ -1,5 +1,5 @@
 <?php
-
+// Admin-------------------------------------------
 Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["admin"]], function () {
     Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
@@ -14,6 +14,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "mid
     Route::get('/productSearch', 'ProductController@productSearch');
 });
 
+// user----------------------------------------------------
 Route::group(['namespace' => 'Front'], function () {
     Route::get('/', "HomeController@index")->name("/");
     Route::get('/category/products/{id}', "HomeController@categoryProducts")->name("category.products");
@@ -31,7 +32,9 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
 });
 
+// login-----------------------------------------------------------------
 Route::group(['namespace' => "Login"], function () { 
+    // user--------------------------------------------------
     Route::get('/registration', 'LoginController@showRegistrationForm')->name("registration");
     Route::post('/registration', 'LoginController@registration')->name("registration");
     Route::get('/user/verify/{token}', 'LoginController@userEmailVerification')->name("user.verify");
@@ -41,6 +44,11 @@ Route::group(['namespace' => "Login"], function () {
 
     Route::get('/logout', 'LoginController@logout')->name("logout");
 
+    // socialite---------------------------------------
+    Route::get('login/facebook', 'LoginController@redirectToProvider');
+    Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
+
+    // Admin-------------------------------------------------------
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/login', 'LoginController@showAdminLoginForm')->name("login");
         Route::post('/login', 'LoginController@adminLogin')->name("login");

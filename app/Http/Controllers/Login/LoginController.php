@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -142,5 +143,19 @@ class LoginController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect("/admin/login");
+    }
+
+    // Socialite----------------------------------------------------------------------
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        return $user->getName();
     }
 }
