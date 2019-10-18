@@ -69,7 +69,7 @@
                 <div class="social">
                     <ul>
                         <li>or login using : </li>
-                        <li><a href="#" class="facebook"><span class="fa fa-facebook"></span></a></li>
+                        <li><a href="{{ url('/login/facebook') }}" class="facebook"><span class="fa fa-facebook"></span></a></li>
                         <li><a href="#" class="twitter"><span class="fa fa-twitter"></span></a></li>
                         <li><a href="#" class="google"><span class="fa fa-google-plus"></span></a></li>
                     </ul>
