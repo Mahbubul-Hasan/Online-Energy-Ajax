@@ -148,16 +148,16 @@ class LoginController extends Controller
 
     // Socialite----------------------------------------------------------------------
 
-    public function redirectToProvider()
+    public function redirectToProvider($socialite)
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver($socialite)->redirect();
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback($socialite)
     {
-        $FBuser = Socialite::driver('facebook')->user();
+        $socialUser = Socialite::driver($socialite)->user();
 
-        $DBuser = User::where("email", $FBuser->getEmail())->first();
+        $DBuser = User::where("email", $socialUser->getEmail())->first();
         if ($DBuser) {
             Auth::login($DBuser);
         }

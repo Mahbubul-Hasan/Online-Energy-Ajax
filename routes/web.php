@@ -45,8 +45,8 @@ Route::group(['namespace' => "Login"], function () {
     Route::get('/logout', 'LoginController@logout')->name("logout");
 
     // socialite---------------------------------------
-    Route::get('/login/facebook', 'LoginController@redirectToProvider');
-    Route::get('/login/facebook/callback', 'LoginController@handleProviderCallback');
+    Route::get('/login/{socialite}', 'LoginController@redirectToProvider');
+    Route::get('/login/{socialite}/callback', 'LoginController@handleProviderCallback');
 
     // Admin-------------------------------------------------------
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

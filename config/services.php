@@ -30,10 +30,18 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+// Socialite------------------------------------
     'facebook' => [
         'client_id' => '2556323634448620',
         'client_secret' => 'cddc67b6089a9b2be95782b7e549520f',
         'redirect' => 'https://localhost:8000/login/facebook/callback',
+    ],
+
+    'google' => [
+        'client_id' => '210490847601-l3o21vgll1lg45priln52kh5r7nfp8uh.apps.googleusercontent.com',
+        'client_secret' => 'hGISwRVmZaFGvMEhw8dYEC8P',
+        'redirect' => 'http://localhost:8000/login/google/callback',
     ],
 
 ];
