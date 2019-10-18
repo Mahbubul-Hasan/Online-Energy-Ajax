@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Mail\RegistrationEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
@@ -154,8 +155,22 @@ class LoginController extends Controller
 
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
+        $FBuser = Socialite::driver('facebook')->user();
 
-        return $user->getName();
+        $DBuser = User::where("email", $FBuser->getEmail())->first();
+        if ($DBuser) {
+            Auth::login($DBuser);
+        }
+        else {
+            $user = new User();
+            $user->name = $FBuser->getName();
+            $user->email = $FBuser->getEmail();
+            $user->password = Hash::make(123456);
+            $user->save();
+
+            Auth::login($user);
+        }
+        return redirect()->intended(route('/'));
+        
     }
 }
