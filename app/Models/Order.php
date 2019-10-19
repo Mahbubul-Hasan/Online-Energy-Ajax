@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\OrderProduct;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Order extends Model
 {
@@ -18,5 +20,20 @@ class Order extends Model
     public function products()
     {
         return $this->hasMany(OrderProduct::Class);
+    }
+
+    public function saveOrderInfo($order, $request)
+    {
+        $order->user_id = Auth::user()->id;
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->email = $request->email;
+        $order->location = $request->location;
+        $order->address = $request->address;
+        $order->totalPrice = (double)Cart::subtotal() + ((int)$order->location * (int)Cart::count());
+
+        $order->save();
+
+        return $order;
     }
 }

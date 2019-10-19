@@ -19,4 +19,13 @@ class OrderProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function saveOrderProductInfo($orderProduct, $cart, $order)
+    {
+        $orderProduct->order_id = $order->id;
+        $orderProduct->product_id = $cart->id;
+        $orderProduct->quantity = $cart->qty;
+
+        $orderProduct->save();
+    }
 }

@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/cartPriceCount', 'CartController@cartPriceCount');
 
     Route::get('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
-    Route::post('/checkout', 'CheckoutController@checkoutView')->name("checkout")->middleware("auth");
+    Route::post('/checkout', 'CheckoutController@checkout')->name("checkout")->middleware("auth");
 });
 
 // login-----------------------------------------------------------------
