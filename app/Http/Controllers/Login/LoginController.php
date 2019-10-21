@@ -163,8 +163,8 @@ class LoginController extends Controller
         }
         else {
             $user = new User();
-            $user->name = $FBuser->getName();
-            $user->email = $FBuser->getEmail();
+            $user->name = $socialUser->getName();
+            $user->email = $socialUser->getEmail();
             $user->password = Hash::make(123456);
             $user->save();
 
