@@ -24,16 +24,20 @@ class Order extends Model
 
     public function saveOrderInfo($order, $request)
     {
+        
         $order->user_id = Auth::user()->id;
         $order->name = $request->name;
         $order->phone = $request->phone;
         $order->email = $request->email;
         $order->location = $request->location;
         $order->address = $request->address;
-        $order->totalPrice = (double)Cart::subtotal() + ((int)$order->location * (int)Cart::count());
+
+        $subtotal =  preg_replace("/([^0-9\\.])/i", "", Cart::subtotal());
+        $order->totalPrice = $subtotal + ($request->location * Cart::count());
 
         $order->save();
 
         return $order;
     }
+
 }

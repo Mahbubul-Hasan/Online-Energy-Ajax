@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
+use NumberFormatter;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use App\Mail\OrderConfirmMail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +37,6 @@ class CheckoutController extends Controller
         {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         else {
             $order = new Order();
             $order = $order->saveOrderInfo($order, $request);
@@ -44,6 +47,9 @@ class CheckoutController extends Controller
             }
 
             Cart::destroy();
+            
+            Mail::to(Auth::user()->email)->queue(new OrderConfirmMail(Auth::user(), $order));
+            
             return redirect()->route("/");
         }
     }
