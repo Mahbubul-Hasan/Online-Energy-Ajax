@@ -323,7 +323,7 @@
                                                                                                                             <tr>
                                                                                                                                 <td align="center"
                                                                                                                                     style="color:#ffffff;font-family:Verdana, Arial, sans-serif;font-size:18px;line-height:22px;">
-                                                                                                                                    <a href="" style="color: white; text-decoration: none;">View Your Order</a>
+                                                                                                                                    <a href="http://localhost:8000/order/history" style="color: white; text-decoration: none;">View Your Order</a>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                             
