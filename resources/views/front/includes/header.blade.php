@@ -7,13 +7,13 @@
         </div>
         <div class="head-t">
             <ul class="card">
+                <li><a href="{{ route('order.history') }}"><i class="fa fa-history" aria-hidden="true"></i>Order History</a></li>
+                <li><a href="{{ route("checkout") }}"><i class="fa fa-credit-card" aria-hidden="true"></i>Checkout</a></li>
                 @guest
                 <li><a href="{{ route('login') }}"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
                 <li><a href="{{ route('registration') }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>Register</a></li>
                 @endguest
-                <li><a href="{{ route("checkout") }}"><i class="fa fa-credit-card" aria-hidden="true"></i>Checkout</a></li>
                 @auth
-                <li><a href="about.html"><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
                 <li><a href="{{ route("logout") }}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                 @endauth
             </ul>

@@ -53,4 +53,10 @@ class CheckoutController extends Controller
             return redirect()->route("/");
         }
     }
+
+    public function orderHistory()
+    {
+        $date["orders"] = Order::where("user_id", Auth::user()->id)->orderBy("id", "DESC")->get();
+        return view("front.orderHistory/orderHistory")->with($date);
+    }
 }
