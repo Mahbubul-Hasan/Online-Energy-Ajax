@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Front'], function () {
         Route::post('/checkout', 'CheckoutController@checkout')->name("checkout");
     
         Route::get('/order/history', 'CheckoutController@orderHistory')->name("order.history");
+        Route::get('/order/details/{id}', 'CheckoutController@orderDetails')->name("order.details");
     });
 });
 

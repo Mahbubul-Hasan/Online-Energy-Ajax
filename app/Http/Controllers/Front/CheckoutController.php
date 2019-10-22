@@ -56,7 +56,14 @@ class CheckoutController extends Controller
 
     public function orderHistory()
     {
-        $date["orders"] = Order::where("user_id", Auth::user()->id)->orderBy("id", "DESC")->get();
-        return view("front.orderHistory/orderHistory")->with($date);
+        $data["orders"] = Order::where("user_id", Auth::user()->id)->orderBy("id", "DESC")->get();
+        $data["orderProducts"] = "";
+        return view("front.orderHistory.orderHistory")->with($data);
+    }
+
+    public function orderDetails($id)
+    {
+        $data["orderProducts"] = OrderProduct::with("product")->where("order_id", $id)->orderBy("id", "DESC")->get();
+        return view("front.orderHistory.orderProducts")->with($data);;
     }
 }

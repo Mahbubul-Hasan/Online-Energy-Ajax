@@ -204,4 +204,22 @@ $(function () {
             }
         })
     }
+
+
+    // Order Details------------------------------
+    $(document).on("click", "#orderView", function(event){
+        event.preventDefault();
+
+        let url = $(this).attr("href");
+        let id = $(this).data("id");
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: (data) => {
+                $("#orderProducts").html(data);
+                $("#orderID").text(id);
+            }
+        });
+    })
 });

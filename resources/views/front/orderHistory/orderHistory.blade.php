@@ -30,6 +30,16 @@ Order Histroy
     .Success {
         color: green;
     }
+    .modal-header {
+        padding-bottom: 20px;
+    }
+    .modal-title {
+        text-align: center;
+    }
+    .modal-body {
+        padding: 20px;
+        border-top: 1px solid #e5e5e5;
+    }
 </style>
 
 <div class="container" style="margin-top: 30px">
@@ -46,14 +56,14 @@ Order Histroy
                     <th scope="col">Phone</th>
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
-                    <th scope="col">Total Price</th>
+                    <th scope="col">Total Price (TK)</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @php($i = 1)
-                @foreach ($orders as $order)    
+                @php($i = 1) 
+                @foreach ($orders as $order)
                 <tr>
                     <th scope="row">{{ $i++ }}</th>
                     <td>{{ $order->id }}</td>
@@ -63,16 +73,29 @@ Order Histroy
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->email }}</td>
                     <td>{{ $order->address }}</td>
-                    <td>৳ {{ number_format($order->totalPrice, 2) }}</td>
+                    <td>{{ number_format($order->totalPrice, 2) }}</td>
                     <td><strong class="{{ $order->status }}">{{ $order->status }}</strong></td>
-                    
+
                     <td>
-                        <a id="view" href="" class="btn btn-info btn-sm"> More Details </a>
+                        <a id="orderView" data-id="{{ $order->id }}" href="{{ url('/order/details', ["id" => $order->id]) }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#oderDetails">
+                            More Details
+                        </a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+
+    <div class="modal fade" id="oderDetails" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="orderProducts">
+                @if ($orderProducts != null)
+                    @include('front.orderHistory.orderProducts')
+                @endif
+            </div>
+        </div>
+    </div>
 </div>
+
 @endsection
