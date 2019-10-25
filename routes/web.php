@@ -12,6 +12,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "mid
     Route::get('/getAllProduct', 'ProductController@getAllProduct');
     Route::get('/getAllProductByPagination', 'ProductController@getAllProduct');
     Route::get('/productSearch', 'ProductController@productSearch');
+
+    Route::resource('/orders', 'OrderController');
 });
 
 // user----------------------------------------------------
