@@ -180,6 +180,7 @@ $(function () {
         cartPriceCount();
     });
 
+    // Number to Currency--------------------------------------------------
     const currencyFormat = (price) => {
         return price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     };
@@ -212,6 +213,8 @@ $(function () {
 
         let url = $(this).attr("href");
         let id = $(this).data("id");
+        let location = Number($(this).data("location"));
+       
         $.ajax({
             url: url,
             type: "GET",
@@ -219,6 +222,14 @@ $(function () {
             success: (data) => {
                 $("#orderProducts").html(data);
                 $("#orderID").text(id);
+
+                let oSubtotal = Number($("#oSubtotal").text().replace(/[^0-9.-]+/g,""));
+                let tQuantity = Number($("#tQuantity").text());
+                let dCharge = location * tQuantity;
+                $("#odCharege").text(dCharge);
+                
+                let total = oSubtotal + dCharge;
+                $("#odTotal").text(currencyFormat(total));
             }
         });
     })

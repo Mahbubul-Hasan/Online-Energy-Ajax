@@ -19,6 +19,8 @@
                             </thead>
                             <tbody>
                                 @php($i = 1)
+                                @php($subtotal = 0)
+                                @php($tQuantity = 0)
                                 @foreach ($orderProducts as $product)    
                                 <tr>
                                     <th scope="col">{{ $i++ }}</th>
@@ -29,9 +31,29 @@
                                     <td scope="col">{{ $product->product->code }}</td>
                                     <td scope="col">{{ number_format($price = $product->product->price, 2) }}</td>
                                     <td scope="col">{{ $quantity = $product->quantity }}</td>
-                                    <td scope="col">{{ number_format($price * $quantity, 2) }}</td>
+                                    <td scope="col">{{ number_format($subtotalPrice = $price * $quantity, 2) }}</td>
                                 </tr>
+                                @php($subtotal = $subtotal + $subtotalPrice)
+                                @php($tQuantity = $tQuantity + $quantity)
                                 @endforeach
+                                <tr>
+                                    <td scope="col" colspan="5"></td>
+                                    <th scope="col">Sub Total</th>
+                                    <td scope="col" id="oSubtotal">{{ number_format($subtotal, 2) }}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td scope="col" colspan="5"></td>
+                                    <th scope="col">Delivery Charege</th>
+                                    <th scope="col" id="tQuantity" hidden>{{ $tQuantity }}</th>
+                                    <td scope="col" id="odCharege"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td scope="col" colspan="5"></td>
+                                    <th scope="col">Total</th>
+                                    <td scope="col" id="odTotal"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

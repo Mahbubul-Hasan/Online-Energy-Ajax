@@ -44,6 +44,13 @@ Order Histroy
 
 <div class="container" style="margin-top: 30px">
     <h2>Order Histroy</h2>
+
+    @if ($orders->count() <= 0)
+    <div class="alert alert-warning">
+        <strong>You have not any order</strong>
+      </div>
+    @else   
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -77,7 +84,7 @@ Order Histroy
                     <td><strong class="{{ $order->status }}">{{ $order->status }}</strong></td>
 
                     <td>
-                        <a id="orderView" data-id="{{ $order->id }}" href="{{ url('/order/details', ["id" => $order->id]) }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#oderDetails">
+                        <a id="orderView" data-location="{{ $order->location }}" data-id="{{ $order->id }}" href="{{ url('/order/details', ["id" => $order->id]) }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#oderDetails">
                             More Details
                         </a>
                     </td>
@@ -86,6 +93,7 @@ Order Histroy
             </tbody>
         </table>
     </div>
+    @endif
 
     <div class="modal fade" id="oderDetails" role="dialog">
         <div class="modal-dialog modal-lg">
