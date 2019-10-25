@@ -131,7 +131,7 @@ class LoginController extends Controller
             $credentials = $request->only(['email', 'password']);
             
             if (Auth::guard('admin')->attempt($credentials)) {
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect('/admin/dashboard');
             }
             else {
                 $this->setErrorMessage("Email or Password is worng. Please try again");
