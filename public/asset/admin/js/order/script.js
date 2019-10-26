@@ -1,8 +1,4 @@
 $(function() {
-    $(document).on("click", "#addCategoryModal", function() {
-        $(".errorName").css("display", "none");
-    });
-
     // All Order------------------------------------------------------------
     const allOrder = () => {
         let url = $("#allOrder").data("url");
@@ -65,7 +61,8 @@ $(function() {
                     },
                     dataType: "JSON",
                     success: function(data) {
-                        if (data === "delete") return allOrder();
+                        if (data === "delete") 
+                        return allOrder();
                     }
                 });
                 console.log("Delete");
@@ -153,26 +150,26 @@ $(function() {
     });
 
     // pagination---------------------------------------------------------
-    $(document).on("click", ".pagination li a", function(event) {
-        event.preventDefault();
+    // $(document).on("click", ".pagination li a", function(event) {
+    //     event.preventDefault();
 
-        let url = $(this).attr("href");
-        let pageNumber = url.split("?page=")[1];
+    //     let url = $(this).attr("href");
+    //     let pageNumber = url.split("?page=")[1];
 
-        let newUrl =
-            $("#allOrderByPagination").data("url") +
-            "?page=" +
-            pageNumber;
+    //     let newUrl =
+    //         $("#allOrderByPagination").data("url") +
+    //         "?page=" +
+    //         pageNumber;
 
-        $.ajax({
-            url: newUrl,
-            type: "GET",
-            dataType: "HTML",
-            success: data => {
-                $("#showAllcategory").html(data);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: newUrl,
+    //         type: "GET",
+    //         dataType: "HTML",
+    //         success: data => {
+    //             $("#showAllcategory").html(data);
+    //         }
+    //     });
+    // });
 
     // Search---------------------------------------------------------
     $(document).on("keyup", ".admin-search", function() {
