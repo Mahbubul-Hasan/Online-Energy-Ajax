@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -59,7 +62,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        return response()->json($order);
     }
 
     /**
@@ -71,7 +75,25 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "name" => "required",
+            'phone' => 'required|numeric|regex:/\+?(88)?0?1[2-9][0-9]{8}\b/',
+            "email" => "required|email",
+            "location" => "required",
+            "address" => "required",
+            "totalPrice" => "required||regex:/^\d*(\.\d{2})?$/",
+            "status" => "required",
+        ]);
+        if ($validator->fails()){
+            return response()->json($validator->errors());
+        }
+        else {
+            $order = Order::with("user")->where("id", $id)->first();
+            $order->saveOrderInfoByAdmin($request, $order);
+            
+            Mail::to($order->user->email)->queue(new OrderStatusMail($order->user, $order));
+            return response()->json("seccess");
+        }
     }
 
     /**

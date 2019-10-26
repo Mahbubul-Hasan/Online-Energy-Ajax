@@ -40,4 +40,19 @@ class Order extends Model
         return $order;
     }
 
+    public function saveOrderInfoByAdmin($request, $order)
+    {
+        
+        $order->user_id = $request->user_id;
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->email = $request->email;
+        $order->location = $request->location;
+        $order->address = $request->address;
+        $order->totalPrice = $request->totalPrice;
+        $order->status = $request->status;
+
+        $order->save();
+    }
+
 }

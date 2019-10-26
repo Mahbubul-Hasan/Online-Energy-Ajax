@@ -85,12 +85,12 @@
     </div>
 </div>
 
-<!--Edit Category Modal -->
+<!--Edit Order Modal -->
 
 <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form id="updateCategoryForm" action="{{ url("/admin/orders") }}" method="POST">
+            <form id="updateOrderForm" action="{{ url("/admin/orders") }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-content">
@@ -106,35 +106,67 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-signature"></i></span>
                             </div>
-                            <input id="eId" type="hidden" class="form-control" name="id">
-                            <input id="eName" type="text" class="form-control" placeholder="Category Name" name="name">
+                            <input id="eOId" type="hidden" class="form-control" name="id">
+                            <input id="eOUserId" type="hidden" class="form-control" name="user_id">
+                            <input id="eOName" type="text" class="form-control" placeholder="Name" name="name">
                         </div>
-                        <p class="errorName" style="color: red;"></p>
+                        <p class="errorOName" style="color: red;"></p>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-signature"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone-alt"></i></span>
                             </div>
-                            <input id="eId" type="hidden" class="form-control" name="id">
-                            <input id="eName" type="text" class="form-control" placeholder="Category Name" name="name">
+                            <input id="eOPhone" type="text" class="form-control" placeholder="Phone" name="phone">
                         </div>
-                        <p class="errorName" style="color: red;"></p>
+                        <p class="errorOPhone" style="color: red;"></p>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope-open-text"></i></span>
+                            </div>
+                            <input id="eOEmail" type="text" class="form-control" placeholder="Email" name="email">
+                        </div>
+                        <p class="errorOEmail" style="color: red;"></p>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-audio-description"></i></span>
                             </div>
-                            <textarea id="eDescription" class="form-control" placeholder="Description (Optional)" name="description"></textarea>
+                            <textarea id="eOAddress" class="form-control" placeholder="Address" name="address"></textarea>
                         </div>
+                        <p class="errorOAddress" style="color: red;"></p>
 
                         <div class="form-group">
+                            <label class="mr-3">Location:</label>
+                            <input id="location-50" class="publication-status" type="radio" value="50" name="location">
+                            <label class="mr-3">Inside Dhaka</label>
 
-                            <input id="active-1" class="publication-status" type="radio" value="1" name="active">
-                            <label class="mr-5">Active</label>
+                            <input id="location-100" class="publication-status" type="radio" value="100" name="location">
+                            <label class="mr-3">Outside Dhaka</label>
+                        </div>
 
-                            <input id="active-0" class="publication-status" type="radio"  value="0" name="active">
-                            <label>Inactive</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><strong> ৳ </strong></span>
+                            </div>
+                            <input id="eOTotalPrice" type="text" class="form-control" placeholder="Total Price" name="totalPrice">
+                        </div>
+                        <p class="errorOTotalPrice" style="color: red;"></p>
 
+                        <div class="form-group">
+                            <label class="mr-3">Status:</label>
+
+                            <input id="status-Pending" class="publication-status" type="radio" value="Pending" name="status">
+                            <label class="mr-3">Pending</label>
+
+                            <input id="status-Processing" class="publication-status" type="radio" value="Processing" name="status">
+                            <label class="mr-3">Processing</label>
+
+                            <input id="status-On-The-Way" class="publication-status" type="radio" value="On-The-Way" name="status">
+                            <label class="mr-3">On-The-Way</label>
+
+                            <input id="status-Success" class="publication-status" type="radio" value="Success" name="status">
+                            <label class="mr-3">Success</label>
                         </div>
 
                     </div>
