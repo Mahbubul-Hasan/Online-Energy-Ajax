@@ -73,7 +73,7 @@
                 <td>{{ number_format($order->totalPrice, 2) }}</td>
                 <th id="{{ $order->status }}">{{ $order->status }}</th>
                 <td>
-                    <a id="view" href="{{url('/admin/orders', [$order->id])}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
+                    <a id="view" href="{{url('/admin/orders', [$order->id])}}" data-location="{{ $order->location }}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
                     <a id="edit" href="{{url('/admin/orders', [$order->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                     <a id="delete" href="{{url('/admin/orders', [$order->id])}}" data-token="{{ csrf_token() }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                 </td>
@@ -81,7 +81,7 @@
             @endforeach
         </tbody>
     </table>
-    {{-- {{ $orders->links() }} --}}
+    {{ $orders->links() }}
 
     @endif
 </div>

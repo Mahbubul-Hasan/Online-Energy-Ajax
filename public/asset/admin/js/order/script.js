@@ -3,15 +3,15 @@ $(function() {
         $(".errorName").css("display", "none");
     });
 
-    // All Category------------------------------------------------------------
-    const getAllcategory = () => {
-        let url = $("#getAllcategory").data("url");
+    // All Order------------------------------------------------------------
+    const allOrder = () => {
+        let url = $("#allOrder").data("url");
         $.ajax({
             url: url,
             type: "GET",
-            dataType: "html",
+            dataType: "HTML",
             success: data => {
-                $("#showAllcategory").html(data);
+                $("#showAllOrder").html(data);
             }
         });
     };
@@ -20,20 +20,23 @@ $(function() {
     $(document).on("click", "#view", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
+        console.log("TCL: url", url)
         $.ajax({
             url: url,
             typr: "GET",
-            dataType: "JSON",
-            success: data => {
-                if (!$.isEmptyObject(data)) {
-                    $("#viewCategoryModal").modal("show");
-                    $("#viewCategoryModalLabel").text(data.name + "'s Data");
+            dataType: "HTML",
+            success: (data) => {
+                $("#viewOrderModal").modal("show")
+                $("#orderProducts").html(data);
 
-                    $("#cName").text(data.name);
-                    $("#cDescription").text(data.description);
-                    $("#cActive").text(data.active === 1 ? "Yes" : "No");
-                    $("#cDate").text(data.created_at);
-                }
+                let oSubtotal = Number($("#oSubtotal").text().replace(/[^0-9.-]+/g,""));
+                
+                let quantity = $("#tQuantity").text();
+                let location = $(this).data("location")
+                let dCharege = quantity * location
+                $("#odCharege").text(currencyFormat(dCharege));
+
+                $("#odTotal").text(currencyFormat(oSubtotal + dCharege));
             }
         });
     });
@@ -62,7 +65,7 @@ $(function() {
                     },
                     dataType: "JSON",
                     success: function(data) {
-                        if (data === "delete") return getAllcategory();
+                        if (data === "delete") return allOrder();
                     }
                 });
                 console.log("Delete");
@@ -143,7 +146,7 @@ $(function() {
                         timer: 2000
                     });
                     $("#editOrderModal").modal("hide");
-                    // return getAllcategory();
+                    return allOrder();
                 }
             },
         });
@@ -157,7 +160,7 @@ $(function() {
         let pageNumber = url.split("?page=")[1];
 
         let newUrl =
-            $("#getAllcategoryByPagination").data("url") +
+            $("#allOrderByPagination").data("url") +
             "?page=" +
             pageNumber;
 
@@ -188,4 +191,9 @@ $(function() {
             });
         }, 1000);
     });
+
+    // Number to Currency--------------------------------------------------
+    const currencyFormat = (price) => {
+        return price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    };
 });

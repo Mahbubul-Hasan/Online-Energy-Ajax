@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Mail\OrderStatusMail;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,8 +19,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data["orders"] = Order::with("user")->orderBy("id", "DESC")->get();
+        $data["orders"] = Order::with("user")->orderBy("id", "DESC")->paginate(5);
+        $data["orderProducts"] = "";
         return view("admin.order.order")->with($data);
+    }
+    public function allOrder()
+    {
+        $data["orders"] = Order::with("user")->orderBy("id", "DESC")->paginate(5);
+        return view("admin.order.allOrder")->with($data);
     }
 
     /**
@@ -51,7 +58,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data["orderProducts"] = OrderProduct::with("product")->where("order_id", $id)->orderBy("id", "DESC")->get();
+        return view("admin.order.orderProducts")->with($data);
     }
 
     /**

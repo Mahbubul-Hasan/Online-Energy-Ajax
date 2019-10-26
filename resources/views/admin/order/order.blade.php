@@ -24,63 +24,35 @@
   <div class="card mb-3">
       <div class="card-header pt-3">
 
-          {{-- <h3 class="card-title">Category List</h3> --}}
+          {{-- <h3 class="card-title">order List</h3> --}}
           <div class="col-md-10">
               {{-- <form action="" method="POST">
                   @csrf
                   <input class="admin-search" type="text" placeholder="Search" name="search"/>
               </form> --}}
               <input class="admin-search" type="text" placeholder="Search" name="search" />
-              <div id="category-search" data-url="{{ url("/admin/categorySearch") }}"></div>
+              <div id="order-search" data-url="{{ url("/admin/orderSearch") }}"></div>
           </div>
       </div>
           
       <div class="card-body">
 
-          <div class="table-responsive" id="showAllcategory">
+          <div class="table-responsive" id="showAllOrder">
             
             @include('admin.order.allOrder')
               
           </div>
       </div>
   </div>
-  <div id="getAllcategory" data-url="{{ url("/admin/getAllcategory") }}"></div>
-  <div id="getAllcategoryByPagination" data-url="{{ url("/admin/getAllcategoryByPagination") }}"></div>
+  <div id="allOrder" data-url="{{ url("/admin/allOrder") }}"></div>
+  <div id="allOrderByPagination" data-url="{{ url("/admin/allOrderByPagination") }}"></div>
 
-<!--View Category Modal -->
+<!--View order Modal -->
 
-<div class="modal fade" id="viewCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewOrderModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewCategoryModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <b>Name: </b>
-                        <span id="cName"></span>
-                    </div>
-                    <div>
-                        <b>Description: </b>
-                        <span id="cDescription"></span>
-                    </div><div>
-                        <b>Active: </b>
-                        <span id="cActive"></span>
-                    </div><div>
-                        <b>Date:</b>
-                        <span id="cDate"></span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
+        <div class="modal-content" id="orderProducts">
+            
         </div>
     </div>
 </div>

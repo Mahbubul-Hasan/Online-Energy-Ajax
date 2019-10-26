@@ -46,7 +46,7 @@
 
           <div class="table-responsive" id="showAllcategory">
             
-            {{-- @include('admin.category.getAllcategory') --}}
+            @include('admin.category.getAllcategory')
               
           </div>
       </div>
