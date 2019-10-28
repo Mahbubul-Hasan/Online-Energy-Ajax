@@ -116,4 +116,11 @@ class OrderController extends Controller
         $order->delete();
         return response()->json("delete");
     }
+
+    public function orderPagination()
+    {
+        $order = Order::find($id);
+        $order->delete();
+        return response()->json("delete");
+    }
 }

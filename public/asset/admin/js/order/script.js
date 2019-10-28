@@ -16,20 +16,24 @@ $(function() {
     $(document).on("click", "#view", function(event) {
         event.preventDefault();
         let url = $(this).attr("href");
-        console.log("TCL: url", url)
+        console.log("TCL: url", url);
         $.ajax({
             url: url,
             typr: "GET",
             dataType: "HTML",
-            success: (data) => {
-                $("#viewOrderModal").modal("show")
+            success: data => {
+                $("#viewOrderModal").modal("show");
                 $("#orderProducts").html(data);
 
-                let oSubtotal = Number($("#oSubtotal").text().replace(/[^0-9.-]+/g,""));
-                
+                let oSubtotal = Number(
+                    $("#oSubtotal")
+                        .text()
+                        .replace(/[^0-9.-]+/g, "")
+                );
+
                 let quantity = $("#tQuantity").text();
-                let location = $(this).data("location")
-                let dCharege = quantity * location
+                let location = $(this).data("location");
+                let dCharege = quantity * location;
                 $("#odCharege").text(currencyFormat(dCharege));
 
                 $("#odTotal").text(currencyFormat(oSubtotal + dCharege));
@@ -61,8 +65,7 @@ $(function() {
                     },
                     dataType: "JSON",
                     success: function(data) {
-                        if (data === "delete") 
-                        return allOrder();
+                        if (data === "delete") return allOrder();
                     }
                 });
                 console.log("Delete");
@@ -75,11 +78,11 @@ $(function() {
     $(document).on("click", "#edit", function(event) {
         event.preventDefault();
 
-        $(".errorOName").css("display", "none")
-        $(".errorOPhone").css("display", "none")
-        $(".errorOEmail").css("display", "none")
-        $(".errorOAddress").css("display", "none")
-        $(".errorOTotalPrice").css("display", "none")
+        $(".errorOName").css("display", "none");
+        $(".errorOPhone").css("display", "none");
+        $(".errorOEmail").css("display", "none");
+        $(".errorOAddress").css("display", "none");
+        $(".errorOTotalPrice").css("display", "none");
 
         let url = $(this).attr("href") + "/edit";
 
@@ -118,7 +121,7 @@ $(function() {
             type: method,
             data: data,
             dataType: "JSON",
-            success: (data) => {
+            success: data => {
                 if (data.name) {
                     $(".errorOName").css("display", "block");
                     $(".errorOName").html(data.name);
@@ -134,7 +137,7 @@ $(function() {
                 } else if (data.totalPrice) {
                     $(".errorOTotalPrice").css("display", "block");
                     $(".errorOTotalPrice").html(data.totalPrice);
-                } else if (data = "seccess") {
+                } else if ((data = "seccess")) {
                     Swal.fire({
                         position: "top-end",
                         type: "success",
@@ -145,31 +148,29 @@ $(function() {
                     $("#editOrderModal").modal("hide");
                     return allOrder();
                 }
-            },
+            }
         });
     });
 
     // pagination---------------------------------------------------------
-    // $(document).on("click", ".pagination li a", function(event) {
-    //     event.preventDefault();
+    $(document).on("click", ".pagination li a", function(event) {
+        event.preventDefault();
 
-    //     let url = $(this).attr("href");
-    //     let pageNumber = url.split("?page=")[1];
+        let url = $(this).attr("href");
+        let pageNumber = url.split("?page=")[1];
 
-    //     let newUrl =
-    //         $("#allOrderByPagination").data("url") +
-    //         "?page=" +
-    //         pageNumber;
+        let newUrl = $("#orderPagination").data("url") + "?page=" + pageNumber;
+        console.log("TCL: newUrl", newUrl)
 
-    //     $.ajax({
-    //         url: newUrl,
-    //         type: "GET",
-    //         dataType: "HTML",
-    //         success: data => {
-    //             $("#showAllcategory").html(data);
-    //         }
-    //     });
-    // });
+        $.ajax({
+            url: newUrl,
+            type: "GET",
+            dataType: "HTML",
+            success: data => {
+                $("#showAllOrder").html(data);
+            }
+        });
+    });
 
     // Search---------------------------------------------------------
     $(document).on("keyup", ".admin-search", function() {
@@ -190,7 +191,7 @@ $(function() {
     });
 
     // Number to Currency--------------------------------------------------
-    const currencyFormat = (price) => {
+    const currencyFormat = price => {
         return price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     };
 });

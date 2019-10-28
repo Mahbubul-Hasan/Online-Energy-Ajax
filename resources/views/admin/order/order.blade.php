@@ -45,7 +45,7 @@
       </div>
   </div>
   <div id="allOrder" data-url="{{ url("/admin/allOrder") }}"></div>
-  {{-- <div id="allOrderByPagination" data-url="{{ url("/admin/allOrderByPagination") }}"></div> --}}
+  <div id="orderPagination" data-url="{{ url("/admin/orderPagination") }}"></div>
 
 <!--View order Modal -->
 
