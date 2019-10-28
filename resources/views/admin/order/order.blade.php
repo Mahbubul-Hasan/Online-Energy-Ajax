@@ -23,13 +23,7 @@
 
   <div class="card mb-3">
       <div class="card-header pt-3">
-
-          {{-- <h3 class="card-title">order List</h3> --}}
           <div class="col-md-10">
-              {{-- <form action="" method="POST">
-                  @csrf
-                  <input class="admin-search" type="text" placeholder="Search" name="search"/>
-              </form> --}}
               <input class="admin-search" type="text" placeholder="Search" name="search" />
               <div id="order-search" data-url="{{ url("/admin/orderSearch") }}"></div>
           </div>

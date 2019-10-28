@@ -117,10 +117,24 @@ class OrderController extends Controller
         return response()->json("delete");
     }
 
-    public function orderPagination()
+    public function orderSearch()
     {
-        $order = Order::find($id);
-        $order->delete();
-        return response()->json("delete");
+        $key = \Request::get("key");
+
+        if ($key != null) {
+            $data["orders"] = Order::with("user")
+            ->where("name", "LIKE", "%$key%")
+            ->orWhere("phone", "LIKE", "%$key%")
+            ->orWhere("email", "LIKE", "%$key%")
+            ->orWhere("location", "LIKE", "%$key%")
+            ->orWhere("address", "LIKE", "%$key%")
+            ->orWhere("status", "LIKE", "%$key%")
+            ->orderBy("id", "DESC")
+            ->paginate(5);
+        }
+        else {
+            $data["orders"] = Order::with("user")->orderBy("id", "DESC")->paginate(5);
+        }
+        return view("admin.order.allOrder")->with($data);
     }
 }

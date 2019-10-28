@@ -176,7 +176,8 @@ $(function() {
     $(document).on("keyup", ".admin-search", function() {
         setTimeout(() => {
             let key = $(".admin-search").val();
-            let url = $("#category-search").data("url") + "?key=" + key;
+            let url = $("#order-search").data("url") + "?key=" + key;
+            console.log("TCL: url", url)
 
             $.ajax({
                 url: url,
@@ -184,7 +185,7 @@ $(function() {
                 dataType: "HTML",
                 success: data => {
                     console.log(data);
-                    $("#showAllcategory").html(data);
+                    $("#showAllOrder").html(data);
                 }
             });
         }, 1000);
