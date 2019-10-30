@@ -28,6 +28,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/product/modal/{id}', "HomeController@productModal")->name("product.modal");
     Route::get('/single/product/{id}', "HomeController@singleProduct")->name("single.product");
 
+    Route::get('/productSearch', "HomeController@productSearch");
+
     Route::resource('/carts', 'CartController');
     Route::post('/carts/removeAll', 'CartController@cartsRemoveAll');
     Route::post('/carts/update/{id}', 'CartController@cartUpdate');

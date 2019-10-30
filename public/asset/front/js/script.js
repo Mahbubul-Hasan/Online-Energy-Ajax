@@ -233,4 +233,21 @@ $(function () {
             }
         });
     })
+
+
+    // Search--------------------------------------------------------
+    $(document).on("keyup", "#productSearch", function (event) {
+        event.preventDefault();
+
+        let key = $(this).val();
+        let url = window.location.href + "productSearch?key=" + key;
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "HTML",
+            success: (data)=> {
+                $("#homeProducts").html(data)
+            }
+        })
+    })
 });
