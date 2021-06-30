@@ -8,7 +8,7 @@ $(function () {
             url: url,
             type: "GET",
             dataType: "JSON",
-            success: data => {
+            success: (data) => {
                 $("#ViewProductModal").modal("show");
                 $("#viewId").val(data.id);
                 $("#viewQuantity").val(1);
@@ -21,7 +21,7 @@ $(function () {
                 }
                 $("#viewImage").attr("src", data.photo);
                 $("#viewOverview").text(data.short_description);
-            }
+            },
         });
     });
 
@@ -36,21 +36,21 @@ $(function () {
             type: method,
             data: data,
             dataType: "JSON",
-            success: data => {
+            success: (data) => {
                 Swal.fire({
                     position: "top-end",
                     type: "success",
                     title: "This is added to card",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
                 $(".my-cart-badge").text(data);
-            }
+            },
         });
     });
 
     // Cart Product--------------------------------------------------------
-    const getCastProduct = () => {
+    const getCartProduct = () => {
         let url = window.location.origin + "/carts";
         $.ajax({
             url: url,
@@ -58,14 +58,14 @@ $(function () {
             dataType: "HTML",
             success: (data) => {
                 $("#cartProducts").html(data);
-            }
+            },
         });
     };
 
     // Cart Product--------------------------------------------------------
     $(document).on("click", "#cart-product", function () {
         $("#ViewCartModal").modal("show");
-        getCastProduct();
+        getCartProduct();
     });
 
     // remove Cart Product--------------------------------------------------------
@@ -80,25 +80,25 @@ $(function () {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then(result => {
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
             if (result.value) {
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: {
                         _method: "DELETE",
-                        _token: token
+                        _token: token,
                     },
                     dataType: "JSON",
                     success: function (data) {
-                        getCastProduct();
+                        getCartProduct();
                         $(".my-cart-badge").text(data);
 
                         if ($("#checkout-active").text() == "1") {
-                            cartPriceCount()
+                            cartPriceCount();
                         }
-                    }
+                    },
                 });
                 Swal.fire(
                     "Deleted!",
@@ -120,25 +120,25 @@ $(function () {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then(result => {
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
             if (result.value) {
                 $.ajax({
                     url: url,
                     type: "POST",
                     data: {
                         // _method: 'DELETE',
-                        _token: token
+                        _token: token,
                     },
                     dataType: "JSON",
                     success: function (data) {
-                        getCastProduct();
+                        getCartProduct();
                         $(".my-cart-badge").text(data);
 
                         if ($("#checkout-active").text() == "1") {
-                            cartPriceCount()
+                            cartPriceCount();
                         }
-                    }
+                    },
                 });
                 Swal.fire(
                     "Deleted!",
@@ -160,25 +160,31 @@ $(function () {
             type: "POST",
             data: {
                 quantity: quantity,
-                _token: token
+                _token: token,
             },
             dataType: "JSON",
             success: (data) => {
-                getCastProduct();
+                getCartProduct();
                 $(".my-cart-badge").text(data);
 
                 if ($("#checkout-active").text() == "1") {
-                    cartPriceCount()
+                    cartPriceCount();
                 }
-            }
+            },
         });
     });
 
     // Total Price-------------------------------------------------------
-    $(document).on("change", "input[type = 'radio'][name = 'location']", function () {
-        let location = parseInt($("input[type = 'radio'][name = 'location']:checked").val());
-        cartPriceCount();
-    });
+    $(document).on(
+        "change",
+        "input[type = 'radio'][name = 'location']",
+        function () {
+            let location = parseInt(
+                $("input[type = 'radio'][name = 'location']:checked").val()
+            );
+            cartPriceCount();
+        }
+    );
 
     // Number to Currency--------------------------------------------------
     const currencyFormat = (price) => {
@@ -186,7 +192,7 @@ $(function () {
     };
 
     const cartPriceCount = () => {
-        let url = window.location.origin + "/cartPriceCount"
+        let url = window.location.origin + "/cartPriceCount";
 
         $.ajax({
             url: url,
@@ -194,27 +200,30 @@ $(function () {
             dataType: "JSON",
             success: (data) => {
                 $("#subtotal").text(data.cart_price);
-                let subtotal = Number(data.cart_price.replace(/[^0-9\.-]+/g, ""));
+                let subtotal = Number(
+                    data.cart_price.replace(/[^0-9\.-]+/g, "")
+                );
 
-                let location = parseInt($("input[type = 'radio'][name = 'location']:checked").val());
+                let location = parseInt(
+                    $("input[type = 'radio'][name = 'location']:checked").val()
+                );
                 let dCharge = location * data.cart_count;
                 let tPrice = subtotal + dCharge;
 
                 $("#dCharge").text(currencyFormat(dCharge));
                 $("#tPrice").text(currencyFormat(tPrice));
-            }
-        })
-    }
-
+            },
+        });
+    };
 
     // Order Details------------------------------
-    $(document).on("click", "#orderView", function(event){
+    $(document).on("click", "#orderView", function (event) {
         event.preventDefault();
 
         let url = $(this).attr("href");
         let id = $(this).data("id");
         let location = Number($(this).data("location"));
-       
+
         $.ajax({
             url: url,
             type: "GET",
@@ -223,17 +232,20 @@ $(function () {
                 $("#orderProducts").html(data);
                 $("#orderID").text(id);
 
-                let oSubtotal = Number($("#oSubtotal").text().replace(/[^0-9.-]+/g,""));
+                let oSubtotal = Number(
+                    $("#oSubtotal")
+                        .text()
+                        .replace(/[^0-9.-]+/g, "")
+                );
                 let tQuantity = Number($("#tQuantity").text());
                 let dCharge = location * tQuantity;
                 $("#odCharege").text(dCharge);
-                
+
                 let total = oSubtotal + dCharge;
                 $("#odTotal").text(currencyFormat(total));
-            }
+            },
         });
-    })
-
+    });
 
     // Search--------------------------------------------------------
     $(document).on("keyup", "#productSearch", function (event) {
@@ -245,9 +257,9 @@ $(function () {
             url: url,
             type: "GET",
             dataType: "HTML",
-            success: (data)=> {
-                $("#homeProducts").html(data)
-            }
-        })
-    })
+            success: (data) => {
+                $("#homeProducts").html(data);
+            },
+        });
+    });
 });

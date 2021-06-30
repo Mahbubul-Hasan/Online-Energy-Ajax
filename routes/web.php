@@ -1,6 +1,9 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 // Admin-------------------------------------------
-Route::group(['prefix' => 'admin','namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["admin"]], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', "middleware" => ["admin"]], function () {
     Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
     Route::resource('/categories', 'CategoryController');
@@ -38,19 +41,19 @@ Route::group(['namespace' => 'Front'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/checkout', 'CheckoutController@checkoutView')->name("checkout");
         Route::post('/checkout', 'CheckoutController@checkout')->name("checkout");
-    
+
         Route::get('/order/history', 'CheckoutController@orderHistory')->name("order.history");
         Route::get('/order/details/{id}', 'CheckoutController@orderDetails')->name("order.details");
     });
 });
 
 // login-----------------------------------------------------------------
-Route::group(['namespace' => "Login"], function () { 
+Route::group(['namespace' => "Login"], function () {
     // user--------------------------------------------------
     Route::get('/registration', 'LoginController@showRegistrationForm')->name("registration");
     Route::post('/registration', 'LoginController@registration')->name("registration");
     Route::get('/user/verify/{token}', 'LoginController@userEmailVerification')->name("user.verify");
-    
+
     Route::get('/login', 'LoginController@showLoginForm')->name("login");
     Route::post('/login', 'LoginController@login')->name("login");
 
@@ -64,10 +67,10 @@ Route::group(['namespace' => "Login"], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/login', 'LoginController@showAdminLoginForm')->name("login");
         Route::post('/login', 'LoginController@adminLogin')->name("login");
-        
+
         Route::get('/logout', 'LoginController@admniLogout')->name("logout");
     });
-    
+
 });
 
 // Auth::routes();

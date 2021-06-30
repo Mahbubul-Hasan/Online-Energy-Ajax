@@ -194,53 +194,53 @@
             </div>
         </div>
 
-        @if ($all_products->count() <= 0) 
+        @if ($all_products->count() <= 0)
         <div class="alert alert-warning">
             <strong>Sorry!!!</strong> No data found.
         </div>
         @else
-    <div class="con-w3l">
-        @foreach ($all_products as $product)
+        <div class="con-w3l">
+            @foreach ($all_products as $product)
 
-        <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
-            <div class="col-m">
-                <a href="{{ url("/product/modal", ["id" => $product->id]) }}" id="productModal" class="offer-img">
-                    <img src="{{ $product->photo }}" class="img-responsive" alt="" style="width: 100%">
-                </a>
-                <div class="mid-1">
-                    <div class="women" style="height: 60px;">
-                        <b><a href="{{ route("single.product", ["id" => $product->id]) }}">{{ $product->name }}</a> (1 kg)</b>
-                    </div>
-                    <div class="mid-2">
-                        @if ($product->Offer_price )
-                        <p><del>৳ {{ $product->price }}</del><strong class="item_price">৳ {{ $product->Offer_price }}</strong></p>
-                        @else
-                        <p><strong>৳ {{ $product->price }}</strong></p>
-                        @endif
-                        <div class="block">
-                            <div class="starbox small ghosting"> </div>
+            <div class="col-md-3 m-wthree" style="margin-bottom: 30px">
+                <div class="col-m">
+                    <a href="{{ url("/product/modal", ["id" => $product->id]) }}" id="productModal" class="offer-img">
+                        <img src="{{ $product->photo }}" class="img-responsive" alt="" style="width: 100%">
+                    </a>
+                    <div class="mid-1">
+                        <div class="women" style="height: 60px;">
+                            <b><a href="{{ route("single.product", ["id" => $product->id]) }}">{{ $product->name }}</a> (1 kg)</b>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
-                        @csrf
-                        <div class="input-group">
-                            <input type="hidden" class="form-control" name="id" value="{{ $product->id }}" style="width: 65px">
-                            <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                        <div class="mid-2">
+                            @if ($product->Offer_price )
+                            <p><del>৳ {{ $product->price }}</del><strong class="item_price">৳ {{ $product->Offer_price }}</strong></p>
+                            @else
+                            <p><strong>৳ {{ $product->price }}</strong></p>
+                            @endif
+                            <div class="block">
+                                <div class="starbox small ghosting"> </div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="add">
-                            <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
-                        </div>
-                    </form>
+                        <form id="addToCartForm" action="{{ url("/carts") }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input type="hidden" class="form-control" name="id" value="{{ $product->id }}" style="width: 65px">
+                                <input type="hidden" class="form-control" name="quantity" aria-describedby="sizing-addon2" value="1" style="width: 65px">
+                            </div>
+                            <div class="add">
+                                <button type="submit" class="btn btn-danger my-cart-btn my-cart-b">Add to Cart</button>
+                            </div>
+                        </form>
 
+                    </div>
                 </div>
             </div>
+
+            @endforeach
+
+            <div class="clearfix"></div>
         </div>
-
-        @endforeach
-
-        <div class="clearfix"></div>
+        @endif
     </div>
-    @endif
-</div>
 </div>
